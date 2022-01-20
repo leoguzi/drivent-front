@@ -1,12 +1,21 @@
+import { useState } from "react";
 import DashboradPageTitle from "../../../components/Dashboard/DashboradPageTitle";
-import SectionContainer from "../../../components/Dashboard/SectionContainer";
+import HotelSection from "../../../components/Dashboard/Hotel/Hotel/HotelSection";
+import RoomSection from "../../../components/Dashboard/Hotel/Room/RoomSection";
 
 export default function Hotel() {
+  const [selectedHotel, setSelectedHotel] = useState(null);
+	  
   return (
     <>
       <DashboradPageTitle>Escolha de hotel e quarto</DashboradPageTitle>
-      <SectionContainer title='Primeiro, escolha seu hotel'>Teste</SectionContainer>
-      <SectionContainer title='Ótima pedida! Agora escolha seu quarto'>Teste</SectionContainer>
+      <HotelSection setSelectedHotel={setSelectedHotel}/>
+
+      {
+	  selectedHotel
+          ?<RoomSection selectedHotel={selectedHotel}/>
+          :null
+      }
     </>
   );
 }
