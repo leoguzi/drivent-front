@@ -27,7 +27,40 @@ export default function HotelSection({ setSelectedHotel }) {
         "Double"
       ],
       "availableVacancies": 6
-    }
+    },
+    {
+      "id": 1,
+      "name": "Driven Palace",
+      "image": "https://revistabula.com/wp/wp-content/uploads/2020/07/copacabana-palace.jpg",
+      "roomTypes": [
+        "Single",
+        "Double",
+        "Triple"
+      ],
+      "availableVacancies": 10
+    },
+    {
+      "id": 1,
+      "name": "Driven Palace",
+      "image": "https://revistabula.com/wp/wp-content/uploads/2020/07/copacabana-palace.jpg",
+      "roomTypes": [
+        "Single",
+        "Double",
+        "Triple"
+      ],
+      "availableVacancies": 10
+    },
+    {
+      "id": 1,
+      "name": "Driven Palace",
+      "image": "https://revistabula.com/wp/wp-content/uploads/2020/07/copacabana-palace.jpg",
+      "roomTypes": [
+        "Single",
+        "Double",
+        "Triple"
+      ],
+      "availableVacancies": 10
+    },
   ];
       
   return (
