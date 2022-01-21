@@ -10,7 +10,7 @@ export default class TicketApi extends AuthenticatedApi {
     });
   }
 
-  getTicketInformations() {
+  getTicketInformation() {
     return {
       status: 200,
       data: {
