@@ -9,9 +9,11 @@ import useApi from "../../../hooks/useApi";
 import SectionSubtitle from "../../../components/Dashboard/NavigationBar/SectionSubtitle";
 import SectionTitle from "../../../components/Dashboard/NavigationBar/SectionTitle";
 import Button from "../../../components/Form/Button";
+import { toast } from "react-toastify";
 
 export default function Payment() {
   const [ ticketInfo, setTicketInfo ] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [ creditCardInfo, setCreditCardInfo ] = useState({
     cvc: "",
     expiry: "",
@@ -23,24 +25,49 @@ export default function Payment() {
 
   useEffect(() => {
     const { data } = ticket.getTicketInformations();
-    console.log(data);
     setTicketInfo(data);
   }, []);
 
-  const handleInputFocus = (e) => {
+  const handleInputFocusCreditCard = (e) => {
     setCreditCardInfo({ 
       ...creditCardInfo,
       focus: e.target.name
     });
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChangeCreditCard = (e) => {
     const { name, value } = e.target;
     
     setCreditCardInfo({
       ...creditCardInfo,
       [name]: value
     });
+  };
+
+  const onSubmitPayment = () => {
+    const ticketInfoData = {
+      enrollmentId: 1,
+      type: "presential",
+      withHotel: true,
+      value: 600,
+      //paymentDate: null,
+    };
+
+    setIsLoading(true);
+    
+    ticket.save(ticketInfoData).then(() => {
+      toast("Pagamento realizado com sucesso!");
+    }).catch((error) => {
+      if (error.response?.data?.details) {
+        error.response.data.details.forEach((detail) => {
+          toast(detail);
+        });
+      } else {
+        toast("Não foi possível realizar o pagamento");
+      }
+      /* eslint-disable-next-line no-console */
+      console.log(error);
+    }).finally(() => setIsLoading(false));
   };
 
   return (
@@ -71,8 +98,8 @@ export default function Payment() {
             name="number"
             placeholder="Número do Cartão"
             mask="9999 9999 9999 9999"
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
+            onChange={handleInputChangeCreditCard}
+            onFocus={handleInputFocusCreditCard}
             required
           />
           <StyledInputMask
@@ -80,8 +107,8 @@ export default function Payment() {
             name="name"
             placeholder="Nome"
             maxLength={26}
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
+            onChange={handleInputChangeCreditCard}
+            onFocus={handleInputFocusCreditCard}
             required
           />
           <RowInputsCreditCard>
@@ -90,8 +117,8 @@ export default function Payment() {
               name="expiry"
               placeholder="Validade"
               mask="99/99"
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
+              onChange={handleInputChangeCreditCard}
+              onFocus={handleInputFocusCreditCard}
               required
             />
             <StyledInputMask
@@ -99,13 +126,17 @@ export default function Payment() {
               name="cvc"
               placeholder="CVC"
               maxLength={4}
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
+              onChange={handleInputChangeCreditCard}
+              onFocus={handleInputFocusCreditCard}
               required
             />
           </RowInputsCreditCard>
         </InputsCreditCardContainer>
       </CreditCardContainer>
+      <Button
+        onClick={onSubmitPayment}
+        disabled={isLoading}
+      >Finalizar Pagamento</Button>
     </>);
 }
 
@@ -158,6 +189,7 @@ const InputsCreditCardContainer = styled.div`
 const CreditCardContainer = styled.div`
   display: flex;
   max-width: 700px;
+  margin-bottom: 35px;
 
   @media (max-width: 770px) {
     flex-direction: column;
