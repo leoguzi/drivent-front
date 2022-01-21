@@ -105,7 +105,6 @@ const InputsCreditCardContainer = styled.div`
 const CreditCardContainer = styled.div`
   display: flex;
   max-width: 700px;
-  margin-bottom: 35px;
 
   @media (max-width: 770px) {
     flex-direction: column;

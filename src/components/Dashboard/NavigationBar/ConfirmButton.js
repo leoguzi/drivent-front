@@ -16,4 +16,5 @@ export default function ConfirmButton({ isLoading = false, children, ...props })
 const StyledButton = styled(Button)`
   width: 200px;
   height: 40px;
+  margin-top: 35px !important;
 `;
