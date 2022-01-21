@@ -10,6 +10,7 @@ import SectionSubtitle from "../../../components/Dashboard/SectionSubtitle";
 import SectionTitle from "../../../components/Dashboard/SectionTitle";
 import ConfirmButton from "../../../components/Dashboard/NavigationBar/ConfirmButton";
 import CreditCard from "../../../components/Dashboard/Payment/CreditCard";
+import ConfirmationPayment from "../../../components/Dashboard/Payment/ConfirmationPayment";
 
 export default function Payment() {
   const [ ticketInfo, setTicketInfo ] = useState(null);
@@ -103,12 +104,12 @@ export default function Payment() {
         <p>R$ {ticketInfo?.value}</p>
       </TicketInfo>
       <SectionSubtitle>Pagamento</SectionSubtitle>
-      {!ticketInfo.paymentDate ?
+      {ticketInfo?.paymentDate ?
         <CreditCard
           creditCardInfo={creditCardInfo}
           handleInputFocusCreditCard={handleInputFocusCreditCard}
           handleInputChangeCreditCard={handleInputChangeCreditCard}
-        /> : ""
+        /> : <ConfirmationPayment />
       }
       <ConfirmButton
         onClick={onSubmitPayment}
