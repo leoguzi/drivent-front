@@ -104,19 +104,23 @@ export default function Payment() {
         <p>R$ {ticketInfo?.value}</p>
       </TicketInfo>
       <SectionSubtitle>Pagamento</SectionSubtitle>
-      {ticketInfo?.paymentDate ?
-        <CreditCard
-          creditCardInfo={creditCardInfo}
-          handleInputFocusCreditCard={handleInputFocusCreditCard}
-          handleInputChangeCreditCard={handleInputChangeCreditCard}
-        /> : <ConfirmationPayment />
+      {
+        (!ticketInfo?.paymentDate)
+          ? <>
+            <CreditCard
+              creditCardInfo={creditCardInfo}
+              handleInputFocusCreditCard={handleInputFocusCreditCard}
+              handleInputChangeCreditCard={handleInputChangeCreditCard}
+            />
+            <ConfirmButton
+              onClick={onSubmitPayment}
+              isLoading={isLoading}
+            >
+                Finalizar Pagamento
+            </ConfirmButton>
+          </>
+          : <ConfirmationPayment />
       }
-      <ConfirmButton
-        onClick={onSubmitPayment}
-        isLoading={isLoading}
-      >
-        Finalizar Pagamento
-      </ConfirmButton>
     </>);
 }
 
