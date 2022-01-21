@@ -6,6 +6,7 @@ const HotelCardsContainerStyle = styled.div`
     display: flex;
     flex-direction: row;
     overflow-x: auto;
+    overflow-y: hidden;
 
     >div:not(:last-child){
         margin-right: 1rem;
