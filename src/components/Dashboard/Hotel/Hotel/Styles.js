@@ -81,7 +81,7 @@ const HotelName = styled(Typography)`
 
 const InfoData = styled(Typography)`
     font-size: 0.95rem !important;
-    color: #343434;
+    color: #505050;
 `;
 
 const InfoTitle = styled(InfoData)`
@@ -89,4 +89,16 @@ const InfoTitle = styled(InfoData)`
     font-weight: 700 !important;
 `;
 
-export { HotelCardsContainerStyle, HotelCardStyle, HotelImageContainer, HotelName, InfoTitle, InfoData };
+const NoContentWarning = styled(Typography)`
+    color: #757575;
+`; 
+
+export { 
+  HotelCardsContainerStyle,
+  HotelCardStyle,
+  HotelImageContainer,
+  HotelName,
+  InfoTitle,
+  InfoData,
+  NoContentWarning,
+};

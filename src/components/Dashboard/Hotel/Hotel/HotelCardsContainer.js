@@ -1,12 +1,12 @@
 import HotelCard from "./HotelCard";
-import { HotelCardsContainerStyle } from "./Styles";
+import { HotelCardsContainerStyle, NoContentWarning } from "./Styles";
 
 export default function HotelCardsContainer({ hotelsArray }) {
   return (
     <HotelCardsContainerStyle>
       {
         !hotelsArray
-          ? <p>Não há hoteis disponíveis.</p>
+          ? <NoContentWarning>Não há hoteis disponíveis.</NoContentWarning>
           : hotelsArray.map((hotel, i) => <HotelCard hotel={hotel} key={i}/>)
       }
     </HotelCardsContainerStyle>
