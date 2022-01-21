@@ -43,7 +43,10 @@ export default function HotelSection({ selectedHotel, setSelectedHotel }) {
         ?<FullDashboardPageWarning message={error.message}/>
         :(
           <SectionContainer title='Primeiro, escolha seu hotel'>
-            <HotelCardsContainer hotelsArray={hotels}/>
+            <HotelCardsContainer
+              hotelsArray={hotels}
+              selectedHotel={selectedHotel}
+              setSelectedHotel={setSelectedHotel} />
           </SectionContainer>
         )
   );

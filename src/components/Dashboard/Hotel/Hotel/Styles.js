@@ -47,11 +47,12 @@ const HotelCardStyle = styled.div`
     box-sizing:border-box;
     min-width: var(--card-width);
     padding: var(--card-padding);
-    background-color: #F1F1F1;
+    background-color:  ${({ isActive }) => isActive? "#f1ddbb" : "#e9e9e9"};
     border-radius: 10px;
     display:flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
 
     >div:first-child{
         height: calc((var(--card-width) - 2 * var(--card-padding))/ var(--image-ratio));

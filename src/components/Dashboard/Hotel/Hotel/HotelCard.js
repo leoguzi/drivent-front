@@ -1,8 +1,20 @@
 import { HotelCardStyle, HotelImageContainer, HotelName, InfoTitle, InfoData } from "./Styles";
 
-export default function HotelCard({ hotel }) {
+export default function HotelCard({ hotel, selectedHotel, setSelectedHotel }) {
+  //const [isActive, setIsActive] = useState(!selectedHotel?false:selectedHotel.id === hotel.id?true:false);
+  
+  const changeActiveHotel = (hotel, selectedHotel) => {
+    return (
+      !selectedHotel
+        ? false
+        : selectedHotel.id === hotel.id
+          ? true
+          : false
+    );
+  };
+
   return (
-    <HotelCardStyle>
+    <HotelCardStyle isActive={changeActiveHotel(hotel, selectedHotel)} onClick={() => setSelectedHotel(hotel)}>
       <HotelImageContainer>
         <img src={hotel.image} alt={"Foto ilustrativa do hotel"}/>
       </HotelImageContainer>

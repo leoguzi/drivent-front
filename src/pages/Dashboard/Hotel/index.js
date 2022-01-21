@@ -11,7 +11,7 @@ export default function Hotel() {
   return (
     <Container>
       <DashboradPageTitle>Escolha de hotel e quarto</DashboradPageTitle>
-      <HotelSection setSelectedHotel={setSelectedHotel}/>
+      <HotelSection selectedHotel={selectedHotel} setSelectedHotel={setSelectedHotel}/>
 
       {
 	      selectedHotel
