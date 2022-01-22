@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { HiUser, HiOutlineUser } from "react-icons/hi";
+import { IoPerson, IoPersonOutline } from "react-icons/io5";
 
 export const RoomCardsContainerStyle = styled.div``;
 export const RoomCardsStyle = styled.div`
@@ -23,7 +23,7 @@ export const RoomCardsStyle = styled.div`
   background: ${(props) => (props.selected ? "#FFEED2" : "none")};
 `;
 
-export const OccupiedVacancy = styled(HiUser)`
+export const OccupiedVacancy = styled(IoPerson)`
   color: ${(props) => (props.selected ? "#FF4791" : "none")};
 `;
-export const VacancyAvailable = styled(HiOutlineUser)``;
+export const VacancyAvailable = styled(IoPersonOutline)``;
