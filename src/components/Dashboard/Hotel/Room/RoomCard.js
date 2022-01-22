@@ -3,6 +3,7 @@ import { RoomCardsStyle, VacancyAvailable, OccupiedVacancy } from "./Styles";
 export default function RoomCard({ room, selectedRoom, setSelectedRoom }) {
   const disabled = room.vacancies - room.reservations === 0;
   const selected = selectedRoom === room;
+  const nextOcuppancy = room.vacancies - room.reservations - 1;
 
   function vacancies() {
     const vacancyAvailability = [];
@@ -39,9 +40,14 @@ export default function RoomCard({ room, selectedRoom, setSelectedRoom }) {
     >
       <div>{room.name}</div>
       <div>
-        {vacancies().map((vacancyAvailability) => {
+        {vacancies().map((vacancyAvailability, indice) => {
           if (vacancyAvailability) return <VacancyAvailable />;
-          else return <OccupiedVacancy selected={selected} />;
+          else
+            return (
+              <OccupiedVacancy
+                selected={selected && indice === nextOcuppancy}
+              />
+            );
         })}
       </div>
     </RoomCardsStyle>

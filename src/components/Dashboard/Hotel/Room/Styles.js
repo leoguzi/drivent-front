@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { IoPerson, IoPersonOutline } from "react-icons/io5";
 
-export const RoomCardsContainerStyle = styled.div``;
+export const RoomCardsContainerStyle = styled.div`
+  margin: 40px 0;
+`;
 export const RoomCardsStyle = styled.div`
   width: 190px;
   height: 45px;
