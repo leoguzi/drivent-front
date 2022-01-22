@@ -8,23 +8,27 @@ import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButto
 
 export default function SelectTicket() {
   const [enrollmentStatus, setEnrollmentStatus] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isFormLoading, setIsFormLoading] = useState(true);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   const [ticketInfo, setTicketInfo] = useState({});
   const [ticketValue, setTicketValue] = useState(0);
-  const { enrollment } = useApi();
+  const { enrollment, ticket } = useApi();
 
   useEffect(() => {
     enrollment.getPersonalInformations()
       .then(response => {
         setEnrollmentStatus(response.status);
-        setIsLoading(false);
+        setIsFormLoading(false);
       });
   });
     
   function handleSubmit() {
-        
+    setIsButtonLoading(true);
+    ticket.save(ticketInfo).then(() => {
+      setIsButtonLoading(false);
+    });
   }
-    
+  
   function updateTicketValue() {
     const typeValue = ticketInfo.type === "presential" ? 250 : 100; ;
     const hotelValue = ticketInfo.withHotel ? 350 : 0;
@@ -34,7 +38,7 @@ export default function SelectTicket() {
   useEffect(() => updateTicketValue(), [ticketInfo]);
   
   return (
-    isLoading ? (<p>Carregando...</p>) :
+    isFormLoading ? (<p>Carregando...</p>) :
       (enrollmentStatus === 204 ?
         (<DashboardWarning>
         Você precisa completar sua inscrição antes de prosseguir
@@ -87,7 +91,14 @@ export default function SelectTicket() {
                               <strong> R$ {ticketValue}</strong>.
                               Agora é só confirmar:
                             </DashboardPageSubtitle>
-                            <ConfirmButton onClick={() => handleSubmit()}>RESERVAR INGRESSO</ConfirmButton>
+                            <ConfirmButton
+                              onClick={() => {
+                                handleSubmit();
+                              }}
+                              isLoading={isButtonLoading}
+                            >
+                              RESERVAR INGRESSO
+                            </ConfirmButton>
                           </>
                           )}
           </>)));
