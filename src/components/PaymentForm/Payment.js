@@ -10,7 +10,7 @@ import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButto
 import CreditCard from "../../components/Dashboard/Payment/CreditCard";
 import ConfirmationPayment from "../../components/Dashboard/Payment/ConfirmationPayment";
 
-export default function Payment({ ticketInfo }) {
+export default function Payment({ ticketInfo, setIsConfirmed }) {
   const [isLoading, setIsLoading] = useState(false);
   const [ creditCardInfo, setCreditCardInfo ] = useState({
     cvc: "",
@@ -57,18 +57,11 @@ export default function Payment({ ticketInfo }) {
   const onSubmitPayment = () => {
     if (isValidCreditCard() !== true) return;
 
-    const ticketInfoData = {
-      enrollmentId: 1,
-      type: "presential",
-      withHotel: true,
-      value: 600,
-      //paymentDate: null,
-    };
-
     setIsLoading(true);
     
-    ticket.save(ticketInfoData).then(() => {
+    ticket.pay().then(() => {
       toast("Pagamento realizado com sucesso!");
+      setIsConfirmed(true);
     }).catch((error) => {
       if (error.response?.data?.details) {
         error.response.data.details.forEach((detail) => {
@@ -77,8 +70,6 @@ export default function Payment({ ticketInfo }) {
       } else {
         toast("Não foi possível realizar o pagamento");
       }
-      /* eslint-disable-next-line no-console */
-      console.log(error);
     }).finally(() => setIsLoading(false));
   };
 
@@ -88,9 +79,9 @@ export default function Payment({ ticketInfo }) {
       <DashboardPageSubtitle>Ingresso escolhido</DashboardPageSubtitle>
       <TicketInfo>
         <h3>
-          {(ticketInfo?.type === "online")
+          {(ticketInfo.type === "online")
             ? "Online"
-            : ("Presencial" + (ticketInfo?.withHotel ? " + Com Hotel" : ""))
+            : ("Presencial" + (ticketInfo.withHotel ? " + Com Hotel" : ""))
           }
         </h3>
         <p>R$ {ticketInfo?.value}</p>
@@ -113,13 +104,14 @@ export default function Payment({ ticketInfo }) {
           </>
           : <ConfirmationPayment />
       }
-    </>);
+    </>
+  );
 }
 
 const TicketInfo = styled.div`
   background-color: #FFEED2;
   border-radius: 20px;
-  width: 290px;
+  max-width: 290px;
   height: 110px;
   display: flex;
   flex-direction: column;
