@@ -6,7 +6,7 @@ import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
 import DashboardWarning from "../Dashboard/DashboardWarning";
 import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButton";
 
-export default function SelectTicket() {
+export default function SelectTicket({ setIsReserved }) {
   const [enrollmentStatus, setEnrollmentStatus] = useState(null);
   const [isFormLoading, setIsFormLoading] = useState(true);
   const [isButtonLoading, setIsButtonLoading] = useState(false);
@@ -26,11 +26,12 @@ export default function SelectTicket() {
     setIsButtonLoading(true);
     ticket.save(ticketInfo).then(() => {
       setIsButtonLoading(false);
+      setIsReserved(true);
     });
   }
   
   function updateTicketValue() {
-    const typeValue = ticketInfo.type === "presential" ? 250 : 100; ;
+    const typeValue = ticketInfo.type === "presential" ? 250 : 100;
     const hotelValue = ticketInfo.withHotel ? 350 : 0;
     setTicketValue(typeValue+hotelValue);
   }
@@ -56,7 +57,7 @@ export default function SelectTicket() {
                 <p>R$ 250</p>
               </Option>
               <Option
-                onClick={() => setTicketInfo({ ...ticketInfo, type: "online" })}
+                onClick={() => setTicketInfo({ ...ticketInfo, type: "online", withHotel: false })}
                 selected = {ticketInfo.type === "online"}
               >           
                 <p>Online</p>
