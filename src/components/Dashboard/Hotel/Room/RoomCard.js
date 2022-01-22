@@ -22,10 +22,12 @@ export default function RoomCard({ room, selectedRoom, setSelectedRoom }) {
   }
 
   function handleSelectRoom() {
-    if (!selected) {
-      setSelectedRoom(room);
-    } else {
-      setSelectedRoom(null);
+    if (!disabled) {
+      if (!selected) {
+        setSelectedRoom(room);
+      } else {
+        setSelectedRoom(null);
+      }
     }
   }
 
@@ -33,7 +35,7 @@ export default function RoomCard({ room, selectedRoom, setSelectedRoom }) {
     <RoomCardsStyle
       disabled={disabled}
       selected={selected}
-      onClick={!disabled && handleSelectRoom}
+      onClick={handleSelectRoom}
     >
       <div>{room.name}</div>
       <div>
