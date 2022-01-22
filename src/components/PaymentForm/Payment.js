@@ -1,5 +1,5 @@
 import "react-credit-cards/es/styles-compiled.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
