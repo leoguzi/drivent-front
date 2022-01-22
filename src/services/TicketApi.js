@@ -10,6 +10,14 @@ export default class TicketApi extends AuthenticatedApi {
     });
   }
 
+  pay() {
+    return api.post("/tickets/payment", { }, {
+      headers: {
+        ...this.getAuthorizationHeader()
+      }
+    });
+  }
+
   getTicketInformation() {
     return api.get("/tickets", {
       headers: {
