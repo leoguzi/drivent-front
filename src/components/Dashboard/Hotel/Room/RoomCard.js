@@ -1,10 +1,15 @@
 import { RoomCardsStyle, VacancyAvailable, OccupiedVacancy } from "./Styles";
 
-export default function RoomCard({ room }) {
-  function vacancies() {
-    let vacanciesAvailable = room.vacancies - room.reservations;
+export default function RoomCard({ room, selectedRoom, setSelectedRoom }) {
+  const disabled = room.vacancies - room.reservations === 0;
+  const selected = selectedRoom === room;
 
+  function vacancies() {
     const vacancyAvailability = [];
+
+    let vacanciesAvailable = room.vacancies - room.reservations;
+    if (selected) vacanciesAvailable--;
+
     for (let i = 0; i < room.vacancies; i++) {
       if (vacanciesAvailable) {
         vacancyAvailability.push(1);
@@ -16,13 +21,25 @@ export default function RoomCard({ room }) {
     return vacancyAvailability;
   }
 
+  function handleSelectRoom() {
+    if (!selected) {
+      setSelectedRoom(room);
+    } else {
+      setSelectedRoom(null);
+    }
+  }
+
   return (
-    <RoomCardsStyle>
+    <RoomCardsStyle
+      disabled={disabled}
+      selected={selected}
+      onClick={!disabled && handleSelectRoom}
+    >
       <div>{room.name}</div>
       <div>
         {vacancies().map((vacancyAvailability) => {
           if (vacancyAvailability) return <VacancyAvailable />;
-          else return <OccupiedVacancy />;
+          else return <OccupiedVacancy selected={selected} />;
         })}
       </div>
     </RoomCardsStyle>

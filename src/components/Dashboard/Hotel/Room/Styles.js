@@ -16,7 +16,14 @@ export const RoomCardsStyle = styled.div`
 
   display: flex;
   justify-content: space-between;
+
+  background: ${(props) => (props.disabled ? "#e9e9e9" : "none")};
+  color: ${(props) => (props.disabled ? "#8C8C8C" : "none")};
+
+  background: ${(props) => (props.selected ? "#FFEED2" : "none")};
 `;
 
-export const OccupiedVacancy = styled(HiUser)``;
+export const OccupiedVacancy = styled(HiUser)`
+  color: ${(props) => (props.selected ? "#FF4791" : "none")};
+`;
 export const VacancyAvailable = styled(HiOutlineUser)``;
