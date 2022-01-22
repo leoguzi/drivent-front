@@ -3,15 +3,14 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
-import useApi from "../../../hooks/useApi";
+import useApi from "../../hooks/useApi";
 import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
 import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
-import ConfirmButton from "../../../components/Dashboard/NavigationBar/ConfirmButton";
-import CreditCard from "../../../components/Dashboard/Payment/CreditCard";
-import ConfirmationPayment from "../../../components/Dashboard/Payment/ConfirmationPayment";
+import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButton";
+import CreditCard from "../../components/Dashboard/Payment/CreditCard";
+import ConfirmationPayment from "../../components/Dashboard/Payment/ConfirmationPayment";
 
-export default function Payment() {
-  const [ ticketInfo, setTicketInfo ] = useState(null);
+export default function Payment({ ticketInfo }) {
   const [isLoading, setIsLoading] = useState(false);
   const [ creditCardInfo, setCreditCardInfo ] = useState({
     cvc: "",
@@ -21,11 +20,6 @@ export default function Payment() {
     number: "",
   });
   const { ticket } = useApi();
-
-  useEffect(() => {
-    const { data } = ticket.getTicketInformation();
-    setTicketInfo(data);
-  }, []);
 
   const handleInputFocusCreditCard = (e) => {
     setCreditCardInfo({ 
