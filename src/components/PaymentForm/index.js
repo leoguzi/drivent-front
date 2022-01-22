@@ -17,14 +17,13 @@ export default function PaymentForm() {
       setTicketInfo(ticketInfo);
       if (ticketInfo) setIsReserved(true);
       if (ticketInfo.paymentDate) setIsConfirmed(true);
-    });
+    }).catch((error) => setIsReserved(false));
   }, [isReserved, isConfirmed]);
 
   return (
     <>
-      {isReserved
-        ? <Payment ticketInfo={ticketInfo} setIsConfirmed={setIsConfirmed} />
-        : <SelectTicket setIsReserved={setIsReserved} />}
+      {isReserved === true && <Payment ticketInfo={ticketInfo} setIsConfirmed={setIsConfirmed} />}
+      {isReserved === false && <SelectTicket setIsReserved={setIsReserved} />}
     </>
   );
 }

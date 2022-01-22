@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { Typography } from "@material-ui/core";
 
 export default function DashboardPageSubtitle({ children }) {
-  return <TytleStyle variant='h5'>{children}</TytleStyle>;
+  return <SubTitleStyle>{children}</SubTitleStyle>;
 }
   
-const TytleStyle = styled(Typography)`
+const SubTitleStyle = styled.h3`
   margin-bottom: 10px!important;
+  font-size: 20px;
   color: #8e8e8e;
-
 `;
