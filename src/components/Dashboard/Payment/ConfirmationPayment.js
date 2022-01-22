@@ -15,6 +15,7 @@ export default function ConfirmationPayment({ children }) {
 
 const Confirm = styled(ConfirmIcon)`
   margin-right: 10px;
+  
   svg {
     height: 40px;
   }
@@ -27,6 +28,7 @@ const TextBold = styled.p`
 const Container = styled.div`
   display: flex;
   align-items: center;
+  animation: slideInLeft .75s;
 
   > div {
     font-size: 16px;

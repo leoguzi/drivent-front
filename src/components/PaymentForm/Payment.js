@@ -12,7 +12,7 @@ import ConfirmationPayment from "../../components/Dashboard/Payment/Confirmation
 
 export default function Payment({ ticketInfo, setIsConfirmed }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [ creditCardInfo, setCreditCardInfo ] = useState({
+  const [creditCardInfo, setCreditCardInfo] = useState({
     cvc: "",
     expiry: "",
     focus: "",
@@ -74,7 +74,7 @@ export default function Payment({ ticketInfo, setIsConfirmed }) {
   };
 
   return (
-    <>
+    <PaymentContainer>
       <DashboardPageTitle>Ingresso e pagamento</DashboardPageTitle>
       <DashboardPageSubtitle>Ingresso escolhido</DashboardPageSubtitle>
       <TicketInfo>
@@ -104,9 +104,13 @@ export default function Payment({ ticketInfo, setIsConfirmed }) {
           </>
           : <ConfirmationPayment />
       }
-    </>
+    </PaymentContainer>
   );
 }
+
+const PaymentContainer = styled.div`
+  animation: slideInLeft .75s;
+`;
 
 const TicketInfo = styled.div`
   background-color: #FFEED2;
@@ -117,6 +121,7 @@ const TicketInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 
   p {
     margin-top: 10px;
