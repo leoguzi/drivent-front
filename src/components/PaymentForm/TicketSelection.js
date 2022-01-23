@@ -27,12 +27,12 @@ export default function SelectTicket({ setIsReserved }) {
     ticket
       .save(ticketInfo)
       .then(() => setIsReserved(true))
-      .finally(() => {
-        setIsButtonLoading(false);
+      .catch(() => {
         toast(
           "Não foi possível reservar seu ingresso. Tente novamente mais tarde."
         );
-      });
+      })
+      .finally(() => setIsButtonLoading(false));
   }
 
   function updateTicketValue() {
