@@ -17,7 +17,7 @@ export default function PaymentForm() {
       setTicketInfo(ticketInfo);
       if (ticketInfo) setIsReserved(true);
       if (ticketInfo.paymentDate) setIsConfirmed(true);
-    }).catch((error) => setIsReserved(false));
+    }).catch(() => setIsReserved(false));
   }, [isReserved, isConfirmed]);
 
   return (

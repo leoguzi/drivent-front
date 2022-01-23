@@ -5,6 +5,7 @@ import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
 import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
 import DashboardWarning from "../Dashboard/DashboardWarning";
 import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButton";
+import { toast } from "react-toastify";
 
 export default function SelectTicket({ setIsReserved }) {
   const [enrollmentStatus, setEnrollmentStatus] = useState(null);
@@ -24,16 +25,18 @@ export default function SelectTicket({ setIsReserved }) {
     
   function handleSubmit() {
     setIsButtonLoading(true);
-    ticket.save(ticketInfo).then(() => {
-      setIsButtonLoading(false);
-      setIsReserved(true);
-    });
+    ticket.save(ticketInfo)
+      .then(() => setIsReserved(true))
+      .finally(() => {
+        setIsButtonLoading(false);
+        toast("Não foi possível reservar seu ingresso. Tente novamente mais tarde.");
+      });
   }
   
   function updateTicketValue() {
     const typeValue = ticketInfo.type === "presential" ? 250 : 100;
     const hotelValue = ticketInfo.withHotel ? 350 : 0;
-    setTicketValue(typeValue+hotelValue);
+    setTicketValue(typeValue + hotelValue);
   }
 
   useEffect(() => updateTicketValue(), [ticketInfo]);
@@ -45,7 +48,7 @@ export default function SelectTicket({ setIsReserved }) {
         Você precisa completar sua inscrição antes de prosseguir
         para escolha de ingresso
         </DashboardWarning>) : (
-          <>
+          <AnimationContainer>
             <DashboardPageTitle>Ingresso e Pagamento</DashboardPageTitle>
             <DashboardPageSubtitle>Primeiro, escolha sua modalidade de ingresso</DashboardPageSubtitle>
             <OptionsContainer>
@@ -65,7 +68,7 @@ export default function SelectTicket({ setIsReserved }) {
               </Option>
             </OptionsContainer>
             {ticketInfo.type === "presential" &&
-                          (<>
+                          (<AnimationContainer>
                             <DashboardPageSubtitle>Ótimo! Agora escolha sua modalidade de hospedagem</DashboardPageSubtitle>
                             <OptionsContainer>
                               <Option
@@ -83,10 +86,10 @@ export default function SelectTicket({ setIsReserved }) {
                                 <p>+R$ 350</p>
                               </Option>
                             </OptionsContainer>
-                          </>)
+                          </AnimationContainer>)
             }
             {(ticketInfo.type === "online" || ticketInfo.withHotel !== undefined) &&
-                          (<>
+                          (<AnimationContainer>
                             <DashboardPageSubtitle>
                               Fechado! O total ficou em
                               <strong> R$ {ticketValue}</strong>.
@@ -100,10 +103,14 @@ export default function SelectTicket({ setIsReserved }) {
                             >
                               RESERVAR INGRESSO
                             </ConfirmButton>
-                          </>
+                          </AnimationContainer>
                           )}
-          </>)));
+          </AnimationContainer>)));
 }
+
+const AnimationContainer = styled.div`
+animation: slideInLeft .75s;
+`;
 
 const OptionsContainer = styled.div`
 display: flex;
@@ -120,6 +127,7 @@ height: 145px;
 border: ${(props) => props.selected ? "none": "1px solid #C8C8C8"};
 border-radius: 20px;
 margin-right: 15px;
+cursor: pointer;
 background-color: ${(props) => props.selected ? "#FFEED2": "#FFFFFF"};
 
     p:first-child{
