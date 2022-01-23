@@ -11,7 +11,7 @@ export default function PaymentForm() {
 
   const { ticket } = useApi();
 
-  useEffect(async() => {
+  useEffect(() => {
     ticket.getTicketInformation().then((response) => {
       const { data: ticketInfo } = response;
       setTicketInfo(ticketInfo);

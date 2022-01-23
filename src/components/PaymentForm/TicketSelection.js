@@ -45,7 +45,7 @@ export default function SelectTicket({ setIsReserved }) {
         Você precisa completar sua inscrição antes de prosseguir
         para escolha de ingresso
         </DashboardWarning>) : (
-          <>
+          <AnimationContainer>
             <DashboardPageTitle>Ingresso e Pagamento</DashboardPageTitle>
             <DashboardPageSubtitle>Primeiro, escolha sua modalidade de ingresso</DashboardPageSubtitle>
             <OptionsContainer>
@@ -65,7 +65,7 @@ export default function SelectTicket({ setIsReserved }) {
               </Option>
             </OptionsContainer>
             {ticketInfo.type === "presential" &&
-                          (<>
+                          (<AnimationContainer>
                             <DashboardPageSubtitle>Ótimo! Agora escolha sua modalidade de hospedagem</DashboardPageSubtitle>
                             <OptionsContainer>
                               <Option
@@ -83,10 +83,10 @@ export default function SelectTicket({ setIsReserved }) {
                                 <p>+R$ 350</p>
                               </Option>
                             </OptionsContainer>
-                          </>)
+                          </AnimationContainer>)
             }
             {(ticketInfo.type === "online" || ticketInfo.withHotel !== undefined) &&
-                          (<>
+                          (<AnimationContainer>
                             <DashboardPageSubtitle>
                               Fechado! O total ficou em
                               <strong> R$ {ticketValue}</strong>.
@@ -100,10 +100,15 @@ export default function SelectTicket({ setIsReserved }) {
                             >
                               RESERVAR INGRESSO
                             </ConfirmButton>
-                          </>
+                          </AnimationContainer>
                           )}
-          </>)));
+          </AnimationContainer>)));
 }
+
+const AnimationContainer = styled.div`
+animation: slideInLeft .75s;
+
+`;
 
 const OptionsContainer = styled.div`
 display: flex;
