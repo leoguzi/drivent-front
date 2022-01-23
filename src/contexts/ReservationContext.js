@@ -1,3 +1,4 @@
+import httpStatus from "http-status";
 import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
@@ -10,8 +11,9 @@ export function ReservationProvider({ children }) {
   const [reservationInfo, setReservationInfo] = useState(null);
   const [enrollmentInfo, setEnrollmentInfo] = useState(null);
   const [roomInfo, setRoomInfo] = useState(null);
+  const [confirmedReservation, setConfirmedReservation] = useState(undefined);
 
-  const { enrollment } = useApi();
+  const { enrollment, reservation } = useApi();
 
   useEffect(() => {
     if (!enrollmentInfo) {
@@ -36,6 +38,18 @@ export function ReservationProvider({ children }) {
     });
   }, [roomInfo]);
 
+  useEffect(() => {
+    if (confirmedReservation === undefined) {
+      reservation
+        .getUserReservation()
+        .then((resp) => setConfirmedReservation(resp.data))
+        .catch((err) => {
+          if (err.response.status === httpStatus.NOT_FOUND)
+            setConfirmedReservation(null);
+        });
+    }
+  }, [confirmedReservation]);
+
   return (
     <ReservationContext.Provider
       value={{
@@ -45,6 +59,8 @@ export function ReservationProvider({ children }) {
         setEnrollmentInfo,
         roomInfo,
         setRoomInfo,
+        confirmedReservation,
+        setConfirmedReservation,
       }}
     >
       {children}

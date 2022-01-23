@@ -9,4 +9,10 @@ export default class ReservationApi extends AuthenticatedApi {
       },
     });
   }
+
+  getUserReservation() {
+    return api.get("/reservation", {
+      headers: { ...this.getAuthorizationHeader() },
+    });
+  }
 }

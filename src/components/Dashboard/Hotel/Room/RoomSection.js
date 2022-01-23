@@ -7,12 +7,13 @@ import Button from "../../../Form/Button";
 import SectionContainer from "../../SectionContainer";
 import RoomCardsContainer from "./RoomCardsContainer";
 
-export default function RoomSection({ selectedHotel }) {
+export default function RoomSection({ selectedHotel, setChangeRoom }) {
   selectedHotel = 1; //just for development
 
   const { hotel, reservation } = useApi();
   const [roomsArray, setRoomsArray] = useState(null);
-  const { reservationInfo } = useContext(ReservationContext);
+  const { reservationInfo, setConfirmedReservation } =
+    useContext(ReservationContext);
 
   useEffect(() => {
     hotel
@@ -25,7 +26,10 @@ export default function RoomSection({ selectedHotel }) {
     if (reservationInfo?.roomId)
       reservation
         .save(reservationInfo)
-        .then((resp) => console.info(resp))
+        .then((resp) => {
+          setConfirmedReservation(undefined);
+          setChangeRoom(false);
+        })
         .catch((error) => console.error(error));
   }
 
