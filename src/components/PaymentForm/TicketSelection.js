@@ -5,6 +5,7 @@ import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
 import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
 import DashboardWarning from "../Dashboard/DashboardWarning";
 import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButton";
+import { toast } from "react-toastify";
 
 export default function SelectTicket({ setIsReserved }) {
   const [enrollmentStatus, setEnrollmentStatus] = useState(null);
@@ -23,10 +24,15 @@ export default function SelectTicket({ setIsReserved }) {
 
   function handleSubmit() {
     setIsButtonLoading(true);
-    ticket.save(ticketInfo).then(() => {
-      setIsButtonLoading(false);
-      setIsReserved(true);
-    });
+    ticket
+      .save(ticketInfo)
+      .then(() => setIsReserved(true))
+      .finally(() => {
+        setIsButtonLoading(false);
+        toast(
+          "Não foi possível reservar seu ingresso. Tente novamente mais tarde."
+        );
+      });
   }
 
   function updateTicketValue() {
@@ -132,6 +138,7 @@ const Option = styled.div`
   border: ${(props) => (props.selected ? "none" : "1px solid #C8C8C8")};
   border-radius: 20px;
   margin-right: 15px;
+  cursor: pointer;
   background-color: ${(props) => (props.selected ? "#FFEED2" : "#FFFFFF")};
 
   p:first-child {
