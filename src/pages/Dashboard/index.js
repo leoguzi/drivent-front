@@ -59,9 +59,27 @@ export default function Dashboard() {
 
 const Container = styled.div`
   padding: 30px;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   overflow-y: auto;
+
+  ::-webkit-scrollbar {
+        width: 0.5rem;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 1rem; 
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #b9b9b9;
+        border-radius: 1rem; 
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+    }
 
   @media (max-width: 600px) {
     height: calc(100vh - 80px);
