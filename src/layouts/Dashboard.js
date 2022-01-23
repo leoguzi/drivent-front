@@ -14,6 +14,7 @@ export default function Dashboard({ background, children }) {
 }
 
 const StyledContainer = styled(Container)`
+  font-family: 'Roboto', sans-serif;
   display: flex;
   justify-content: flex-start;
   align-items: stretch;

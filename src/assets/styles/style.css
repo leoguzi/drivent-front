@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -8,4 +8,15 @@
 
 body {
   font-family: "Lexend Deca", sans-serif;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translate(700px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
 }
