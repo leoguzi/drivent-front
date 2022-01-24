@@ -22,12 +22,12 @@ export function ReservationProvider({ children }) {
       enrollment
         .getPersonalInformations()
         .then((resp) => setEnrollmentInfo(resp.data))
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
 
       reservation
         .getUserReservation()
         .then((resp) => setConfirmedReservation(resp.data))
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
     }
   }, [userData.token]);
 

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { IoPerson, IoPersonOutline } from "react-icons/io5";
 import { HotelCardStyle } from "../Hotel/Styles";
-import { StyledMuiButton } from "../../../Form/Button";
 
 export const RoomCardsContainerStyle = styled.div`
     margin: 40px 0;
