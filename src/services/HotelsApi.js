@@ -10,4 +10,10 @@ export default class HotelApi extends AuthenticatedApi {
   getAllHotels() {
     return api.get(this.baseRoute, { headers: this.getAuthorizationHeader() } );
   }
+
+  getHotelRooms(hotel) {
+    return api.get(`${this.baseRoute}/${hotel.id}/rooms`, {
+      headers: this.getAuthorizationHeader()
+    });
+  }
 }
