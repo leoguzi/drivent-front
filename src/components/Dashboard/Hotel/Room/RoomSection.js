@@ -6,7 +6,8 @@ import RoomCardsContainer from "./RoomCardsContainer";
 import Button from "../../../Form/Button";
 
 export default function RoomSection({ selectedHotel, setChangeRoom }) {
-  const { setRoomInfo, reservationInfo, setConfirmedReservation } = useContext(ReservationContext);
+  const { setRoomInfo, reservationInfo, update, setUpdate } =
+    useContext(ReservationContext);
   const api = useApi();
   const [roomsArray, setRoomsArray] = useState(null);
 
@@ -24,8 +25,8 @@ export default function RoomSection({ selectedHotel, setChangeRoom }) {
     if (reservationInfo?.roomId) {
       api.reservation
         .save(reservationInfo)
-        .then((resp) => {
-          setConfirmedReservation(undefined);
+        .then(() => {
+          setUpdate(!update);
           setChangeRoom(false);
         })
         .catch((error) => console.error(error));
@@ -33,7 +34,7 @@ export default function RoomSection({ selectedHotel, setChangeRoom }) {
   }
 
   return (
-    <SectionContainer title='Ótima pedida! Agora escolha seu quarto'>
+    <SectionContainer title="Ótima pedida! Agora escolha seu quarto">
       <RoomCardsContainer roomsArray={roomsArray} />
       <Button children={"RESERVAR QUARTO"} onClick={handleSaveReservation} />
     </SectionContainer>

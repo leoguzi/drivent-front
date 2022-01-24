@@ -18,6 +18,8 @@ export function ReservationProvider({ children }) {
 
   const { enrollment, reservation } = useApi();
 
+  // Atualiza os dados de cadastro e de reserva quando o usuário faz login
+  // ou quando a variável de controle update é alterada
   useEffect(() => {
     if (!enrollmentInfo) {
       enrollment
@@ -26,17 +28,16 @@ export function ReservationProvider({ children }) {
         .catch((err) => console.error(err));
     }
 
-    if (confirmedReservation === null) {
-      reservation
-        .getUserReservation()
-        .then((resp) => setConfirmedReservation(resp.data))
-        .catch((err) => {
-          if (err.response.status === httpStatus.NOT_FOUND)
-            setConfirmedReservation(null);
-        });
-    }
-  }, [update, userData]);
+    reservation
+      .getUserReservation()
+      .then((resp) => setConfirmedReservation(resp.data))
+      .catch((err) => {
+        if (err.response.status === httpStatus.NOT_FOUND)
+          setConfirmedReservation(false);
+      });
+  }, [update, userData.token]);
 
+  //Atualiza os dados da reserva sempre que o enrollment é alterado
   useEffect(() => {
     setReservationInfo({
       ...reservationInfo,
@@ -44,24 +45,13 @@ export function ReservationProvider({ children }) {
     });
   }, [enrollmentInfo]);
 
+  //Atualiza os dados da reserva sempre que o room é alterado
   useEffect(() => {
     setReservationInfo({
       ...reservationInfo,
       roomId: roomInfo?.id,
     });
   }, [roomInfo]);
-
-  useEffect(() => {
-    if (confirmedReservation === undefined) {
-      reservation
-        .getUserReservation()
-        .then((resp) => setConfirmedReservation(resp.data))
-        .catch((err) => {
-          if (err.response.status === httpStatus.NOT_FOUND)
-            setConfirmedReservation(null);
-        });
-    }
-  }, [confirmedReservation]);
 
   return (
     <ReservationContext.Provider
