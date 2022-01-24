@@ -9,27 +9,22 @@ const ReservationContext = createContext();
 export default ReservationContext;
 
 export function ReservationProvider({ children }) {
-  const { userData } = useContext(UserContext);
   const [reservationInfo, setReservationInfo] = useState(null);
   const [enrollmentInfo, setEnrollmentInfo] = useState(null);
   const [roomInfo, setRoomInfo] = useState(null);
-  const [confirmedReservation, setConfirmedReservation] = useState(undefined);
+  const [confirmedReservation, setConfirmedReservation] = useState(null);
+  const [update, setUpdate] = useState(false);
 
   const { enrollment, reservation } = useApi();
 
-  useEffect(() => {    
-    if (userData.token) {
+  useEffect(() => {
+    if (!enrollmentInfo) {
       enrollment
         .getPersonalInformations()
         .then((resp) => setEnrollmentInfo(resp.data))
         .catch((err) => console.error(err));
-
-      reservation
-        .getUserReservation()
-        .then((resp) => setConfirmedReservation(resp.data))
-        .catch((err) => console.error(err));
     }
-  }, [userData.token]);
+  }, [update]);
 
   useEffect(() => {
     setReservationInfo({
@@ -68,6 +63,8 @@ export function ReservationProvider({ children }) {
         setRoomInfo,
         confirmedReservation,
         setConfirmedReservation,
+        update,
+        setUpdate,
       }}
     >
       {children}
