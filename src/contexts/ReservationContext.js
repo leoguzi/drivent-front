@@ -9,6 +9,7 @@ const ReservationContext = createContext();
 export default ReservationContext;
 
 export function ReservationProvider({ children }) {
+  const { userData } = useContext(UserContext);
   const [reservationInfo, setReservationInfo] = useState(null);
   const [enrollmentInfo, setEnrollmentInfo] = useState(null);
   const [roomInfo, setRoomInfo] = useState(null);
@@ -24,7 +25,17 @@ export function ReservationProvider({ children }) {
         .then((resp) => setEnrollmentInfo(resp.data))
         .catch((err) => console.error(err));
     }
-  }, [update]);
+
+    if (confirmedReservation === null) {
+      reservation
+        .getUserReservation()
+        .then((resp) => setConfirmedReservation(resp.data))
+        .catch((err) => {
+          if (err.response.status === httpStatus.NOT_FOUND)
+            setConfirmedReservation(null);
+        });
+    }
+  }, [update, userData]);
 
   useEffect(() => {
     setReservationInfo({
