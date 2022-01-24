@@ -1,8 +1,12 @@
+import { useContext } from "react";
+import ReservationContext from "../../../../contexts/ReservationContext";
 import { RoomCardsStyle, VacancyAvailable, OccupiedVacancy } from "./Styles";
 
-export default function RoomCard({ room, selectedRoom, setSelectedRoom }) {
+export default function RoomCard({ room }) {
+  const { roomInfo, setRoomInfo } = useContext(ReservationContext);
+
   const disabled = room.vacancies - room.reservations === 0;
-  const selected = selectedRoom === room;
+  const selected = roomInfo === room;
   const nextOcuppancy = room.vacancies - room.reservations - 1;
 
   function vacancies() {
@@ -25,9 +29,9 @@ export default function RoomCard({ room, selectedRoom, setSelectedRoom }) {
   function handleSelectRoom() {
     if (!disabled) {
       if (!selected) {
-        setSelectedRoom(room);
+        setRoomInfo(room);
       } else {
-        setSelectedRoom(null);
+        setRoomInfo(null);
       }
     }
   }
