@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import styled from "styled-components";
 import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
@@ -6,6 +6,7 @@ import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
 import DashboardWarning from "../Dashboard/DashboardWarning";
 import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButton";
 import { toast } from "react-toastify";
+import ReservationContext from "../../contexts/ReservationContext";
 
 export default function SelectTicket({ setIsReserved }) {
   const [enrollmentStatus, setEnrollmentStatus] = useState(null);
@@ -14,6 +15,8 @@ export default function SelectTicket({ setIsReserved }) {
   const [ticketInfo, setTicketInfo] = useState({});
   const [ticketValue, setTicketValue] = useState(0);
   const { enrollment, ticket } = useApi();
+
+  const { update, setUpdate } = useContext(ReservationContext);
 
   useEffect(() => {
     enrollment.getPersonalInformations().then((response) => {
@@ -26,7 +29,10 @@ export default function SelectTicket({ setIsReserved }) {
     setIsButtonLoading(true);
     ticket
       .save(ticketInfo)
-      .then(() => setIsReserved(true))
+      .then(() => {
+        setIsReserved(true);
+        setUpdate(!update);
+      })
       .catch(() => {
         toast(
           "Não foi possível reservar seu ingresso. Tente novamente mais tarde."

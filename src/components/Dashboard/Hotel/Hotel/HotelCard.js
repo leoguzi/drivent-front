@@ -1,8 +1,6 @@
 import { HotelCardStyle, HotelImageContainer, HotelName, InfoTitle, InfoData } from "./Styles";
 
-export default function HotelCard({ hotel, selectedHotel, setSelectedHotel }) {
-  //const [isActive, setIsActive] = useState(!selectedHotel?false:selectedHotel.id === hotel.id?true:false);
-  
+export default function HotelCard({ hotel, selectedHotel, setSelectedHotel }) {  
   const changeActiveHotel = (hotel, selectedHotel) => {
     return (
       !selectedHotel

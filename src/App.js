@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard";
 
 import EventInfoContext, { EventInfoProvider } from "./contexts/EventInfoContext";
 import UserContext, { UserProvider } from "./contexts/UserContext";
+import { ReservationProvider } from "./contexts/ReservationContext";
 
 export default function App() {
   return (
@@ -22,25 +23,27 @@ export default function App() {
       <ToastContainer />
       <EventInfoProvider>
         <UserProvider>
-          <Router>
-            <Switch>
-              <ConditionalRoute check={ensureCountdownOngoing} path="/" exact>
-                <Countdown />
-              </ConditionalRoute>
+          <ReservationProvider>
+            <Router>
+              <Switch>
+                <ConditionalRoute check={ensureCountdownOngoing} path="/" exact>
+                  <Countdown />
+                </ConditionalRoute>
 
-              <ConditionalRoute check={ensureCountdownOver} path="/enroll" exact>
-                <Enroll />
-              </ConditionalRoute>
+                <ConditionalRoute check={ensureCountdownOver} path="/enroll" exact>
+                  <Enroll />
+                </ConditionalRoute>
 
-              <ConditionalRoute check={ensureCountdownOver} path="/sign-in" exact>
-                <SignIn />
-              </ConditionalRoute>
+                <ConditionalRoute check={ensureCountdownOver} path="/sign-in" exact>
+                  <SignIn />
+                </ConditionalRoute>
 
-              <ConditionalRoute check={ensureAuthenticated} path="/dashboard">
-                <Dashboard />
-              </ConditionalRoute>
-            </Switch>
-          </Router>
+                <ConditionalRoute check={ensureAuthenticated} path="/dashboard">
+                  <Dashboard />
+                </ConditionalRoute>
+              </Switch>
+            </Router>
+          </ReservationProvider>
         </UserProvider>
       </EventInfoProvider>
     </>
