@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useContext, useState } from "react";
 
 import ReservationContext from "../../../contexts/ReservationContext";
-import DashboradPageTitle from "../../../components/Dashboard/DashboradPageTitle";
+import DashboardPageTitle from "../../../components/Dashboard/DashboardPageTitle";
 import HotelSection from "../../../components/Dashboard/Hotel/Hotel/HotelSection";
 import RoomSection from "../../../components/Dashboard/Hotel/Room/RoomSection";
 import ReservedRoomSection from "../../../components/Dashboard/Hotel/ReservedRoom/ReservedRoomSection";
@@ -14,7 +14,7 @@ export default function Hotel() {
 	    
   return (
     <Container>
-      <DashboradPageTitle>Escolha de hotel e quarto</DashboradPageTitle>
+      <DashboardPageTitle>Escolha de hotel e quarto</DashboardPageTitle>
 
       {confirmedReservation && !changeRoom ? (
         <ReservedRoomSection
