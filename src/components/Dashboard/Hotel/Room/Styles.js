@@ -1,9 +1,18 @@
 import styled from "styled-components";
 import { IoPerson, IoPersonOutline } from "react-icons/io5";
+import { HotelCardStyle } from "../Hotel/Styles";
+import { StyledMuiButton } from "../../../Form/Button";
 
 export const RoomCardsContainerStyle = styled.div`
     margin: 40px 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    >div:not(:last-child){
+        margin-right: 1rem;
+    }
 `;
+
 export const RoomCardsStyle = styled.div`
     width: 190px;
     height: 45px;
@@ -23,6 +32,8 @@ export const RoomCardsStyle = styled.div`
     color: ${(props) => (props.disabled ? "#8C8C8C" : "none")};
 
     background: ${(props) => (props.selected ? "#FFEED2" : "none")};
+
+    cursor: ${({ disabled }) => (disabled ? "initial" : "pointer")};
 `;
 
 export const OccupiedVacancy = styled(IoPerson)`
@@ -30,3 +41,7 @@ export const OccupiedVacancy = styled(IoPerson)`
 `;
 
 export const VacancyAvailable = styled(IoPersonOutline)``;
+
+export const ReservedRoomCardStyle = styled(HotelCardStyle)`
+    cursor: initial;
+`;

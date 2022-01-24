@@ -1,10 +1,11 @@
 import {
-  HotelCardStyle,
   HotelImageContainer,
   HotelName,
   InfoTitle,
   InfoData,
 } from "../Hotel/Styles";
+
+import { ReservedRoomCardStyle } from "../Room/Styles";
 
 export default function ReservedRoomCard({ room }) {
   const roomTypes = {
@@ -13,7 +14,7 @@ export default function ReservedRoomCard({ room }) {
     3: "Triple",
   };
   return (
-    <HotelCardStyle>
+    <ReservedRoomCardStyle>
       <HotelImageContainer>
         <img src={room.hotel.image} alt={"Foto ilustrativa do hotel"} />
       </HotelImageContainer>
@@ -28,9 +29,13 @@ export default function ReservedRoomCard({ room }) {
 
         <InfoTitle variant="h6">Pessoas no seu quarto</InfoTitle>
         <InfoData variant="body1">
-          {`Você e mais ${room.reservations - 1}`}
+          {
+            room.reservations - 1 ===0
+              ? "Você"
+              : `Você e mais ${room.reservations - 1}`
+          }
         </InfoData>
       </div>
-    </HotelCardStyle>
+    </ReservedRoomCardStyle>
   );
 }

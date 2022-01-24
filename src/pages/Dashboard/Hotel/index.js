@@ -5,7 +5,7 @@ import ReservationContext from "../../../contexts/ReservationContext";
 import DashboradPageTitle from "../../../components/Dashboard/DashboradPageTitle";
 import HotelSection from "../../../components/Dashboard/Hotel/Hotel/HotelSection";
 import RoomSection from "../../../components/Dashboard/Hotel/Room/RoomSection";
-import ReservedRoom from "../../../components/Dashboard/Hotel/ReservedRoom/ReservedRoom";
+import ReservedRoomSection from "../../../components/Dashboard/Hotel/ReservedRoom/ReservedRoomSection";
 
 export default function Hotel() {
   const { confirmedReservation } = useContext(ReservationContext);
@@ -17,12 +17,15 @@ export default function Hotel() {
       <DashboradPageTitle>Escolha de hotel e quarto</DashboradPageTitle>
 
       {confirmedReservation && !changeRoom ? (
-        <ReservedRoom
+        <ReservedRoomSection
           setChangeRoom={setChangeRoom}
         />
       ) : (
         <>
-          <HotelSection setSelectedHotel={setSelectedHotel} />
+          <HotelSection
+            selectedHotel={selectedHotel}
+            setSelectedHotel={setSelectedHotel}
+          />
           {selectedHotel ? (
             <RoomSection
               selectedHotel={selectedHotel}

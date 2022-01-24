@@ -44,12 +44,13 @@ export default function RoomCard({ room }) {
     >
       <div>{room.name}</div>
       <div>
-        {vacancies().map((vacancyAvailability, indice) => {
+        {vacancies().map((vacancyAvailability, index) => {
           if (vacancyAvailability) return <VacancyAvailable />;
           
           return (
             <OccupiedVacancy
-              selected={selected && indice === nextOcuppancy}
+              selected={selected && index === nextOcuppancy}
+              key={index}
             />
           );
         })}
