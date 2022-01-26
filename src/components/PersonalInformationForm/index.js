@@ -27,7 +27,8 @@ dayjs.extend(CustomParseFormat);
 export default function PersonalInformationForm() {
   const [dynamicInputIsLoading, setDynamicInputIsLoading] = useState(false);
   const { enrollment, cep } = useApi();
-  const { enrollmentInfo, setEnrollmentInfo } = useContext(ReservationContext);
+  const { enrollmentInfo, setEnrollmentInfo, update, setUpdate } =
+    useContext(ReservationContext);
 
   const {
     handleSubmit,
@@ -62,6 +63,7 @@ export default function PersonalInformationForm() {
         .save(newData)
         .then(() => {
           setEnrollmentInfo(newData);
+          setUpdate(!update);
           toast("Salvo com sucesso!");
         })
         .catch((error) => {

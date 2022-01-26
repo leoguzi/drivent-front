@@ -21,7 +21,7 @@ export function ReservationProvider({ children }) {
   // Atualiza os dados de cadastro e de reserva quando o usuário faz login
   // ou quando a variável de controle update é alterada
   useEffect(() => {
-    if (!enrollmentInfo) {
+    if (!enrollmentInfo?.id) {
       enrollment
         .getPersonalInformations()
         .then((resp) => setEnrollmentInfo(resp.data))
