@@ -61,10 +61,6 @@ const ActivitiesContainer = styled.div`
   display: flex;
 `;
 
-const ContainerButtons = styled.div`
-  display: flex;
-`;
-
 const DayButton = styled(Button)`
   margin-right: 17px !important;
   text-transform: capitalize !important;
@@ -74,4 +70,8 @@ const DayButton = styled(Button)`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const ContainerButtons = styled.div`
+  display: flex;
 `;
