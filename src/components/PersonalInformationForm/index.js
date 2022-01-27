@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import DateFnsUtils from "@date-io/date-fns";
 import Typography from "@material-ui/core/Typography";
@@ -20,12 +20,15 @@ import { InputWrapper } from "./InputWrapper";
 import { ErrorMsg } from "./ErrorMsg";
 import { ufList } from "./ufList";
 import FormValidations from "./FormValidations";
+import ReservationContext from "../../contexts/ReservationContext";
 
 dayjs.extend(CustomParseFormat);
 
 export default function PersonalInformationForm() {
   const [dynamicInputIsLoading, setDynamicInputIsLoading] = useState(false);
   const { enrollment, cep } = useApi();
+  const { enrollmentInfo, setEnrollmentInfo, update, setUpdate } =
+    useContext(ReservationContext);
 
   const {
     handleSubmit,
@@ -59,6 +62,8 @@ export default function PersonalInformationForm() {
       enrollment
         .save(newData)
         .then(() => {
+          setEnrollmentInfo(newData);
+          setUpdate(!update);
           toast("Salvo com sucesso!");
         })
         .catch((error) => {
@@ -90,12 +95,8 @@ export default function PersonalInformationForm() {
   });
 
   useEffect(() => {
-    enrollment.getPersonalInformations().then((response) => {
-      if (response.status !== 200) {
-        return;
-      }
-
-      const { name, cpf, birthday, phone, address } = response.data;
+    if (enrollmentInfo) {
+      const { name, cpf, birthday, phone, address } = enrollmentInfo;
 
       setData({
         name,
@@ -110,8 +111,8 @@ export default function PersonalInformationForm() {
         neighborhood: address.neighborhood,
         addressDetail: address.addressDetail,
       });
-    });
-  }, []);
+    }
+  }, [enrollmentInfo]);
 
   function isValidCep(cep) {
     return cep.length === 8;
