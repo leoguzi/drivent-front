@@ -6,9 +6,9 @@ import dayjs from "dayjs";
 import useApi from "../../hooks/useApi";
 import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
 import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
-import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButton";
-import CreditCard from "../../components/Dashboard/Payment/CreditCard";
-import ConfirmationPayment from "../../components/Dashboard/Payment/ConfirmationPayment";
+import ConfirmButton from "../Dashboard/NavigationBar/ConfirmButton";
+import CreditCard from "./CreditCard";
+import ConfirmationPayment from "./ConfirmationPayment";
 
 export default function Payment({ ticketInfo, setIsConfirmed }) {
   const [isLoading, setIsLoading] = useState(false);

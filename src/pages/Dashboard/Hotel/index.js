@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 
 import ReservationContext from "../../../contexts/ReservationContext";
 import DashboardPageTitle from "../../../components/Dashboard/DashboardPageTitle";
-import HotelSection from "../../../components/Dashboard/Hotel/Hotel/HotelSection";
+import HotelSection from "../../../components/Hotel/Hotel/HotelSection";
 import RoomSection from "../../../components/Dashboard/Hotel/Room/RoomSection";
 import ReservedRoomSection from "../../../components/Dashboard/Hotel/ReservedRoom/ReservedRoomSection";
 
