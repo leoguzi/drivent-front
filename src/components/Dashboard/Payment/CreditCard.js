@@ -1,12 +1,48 @@
 import styled from "styled-components";
 import InputMask from "react-input-mask";
 import Cards from "react-credit-cards";
+import { useState } from "react";
 
 export default function CreditCard({
   creditCardInfo,
-  handleInputChangeCreditCard,
-  handleInputFocusCreditCard,
+  setCreditCardInfo,
 }) {
+  const [maskInputCreditCard, setMaskInputCardNumber] = useState(null);
+
+  const handleInputFocusCreditCard = (e) => {
+    setCreditCardInfo({ 
+      ...creditCardInfo,
+      focus: e.target.name,
+    });
+  };
+
+  const handleInputChangeCreditCard = (e) => {
+    const { name, value } = e.target;
+
+    setCreditCardInfo({
+      ...creditCardInfo,
+      [name]: value,
+    });
+  };
+
+  const handleChangeIssuerOfCreditCard = ({ issuer }) => {
+    const masks = {
+      "dinersclub": "9999 999999 9999",
+      "visa": "9999 9999 9999 9999",
+      "maestro": "9999 9999 9999 9999",
+      "mastercard": "9999 9999 9999 9999",
+      "discover": "9999 9999 9999 9999",
+      "unionpay": "9999 9999 9999 9999",
+      "hipercard": "9999 9999 9999 9999999"
+    };
+
+    setCreditCardInfo({
+      ...creditCardInfo,
+      issuer,
+    });
+    setMaskInputCardNumber(masks[issuer]);
+  };
+
   return (
     <CreditCardContainer>
       <Cards
@@ -15,13 +51,16 @@ export default function CreditCard({
         focused={creditCardInfo.focus}
         name={creditCardInfo.name}
         number={creditCardInfo.number}
+        callback={handleChangeIssuerOfCreditCard}
+        locale={{ valid: "Validade" }}
+        placeholders={{ name: "NOME" }}
       />
       <InputsCreditCardContainer>
         <StyledInputMask
           type="tel"
           name="number"
           placeholder="Número do Cartão"
-          mask="9999 9999 9999 9999"
+          mask={maskInputCreditCard || "9999 9999 9999 9999"}
           onChange={handleInputChangeCreditCard}
           onFocus={handleInputFocusCreditCard}
         />
@@ -29,7 +68,7 @@ export default function CreditCard({
           type="text"
           name="name"
           placeholder="Nome"
-          maxLength={26}
+          maxLength={20}
           onChange={handleInputChangeCreditCard}
           onFocus={handleInputFocusCreditCard}
         />

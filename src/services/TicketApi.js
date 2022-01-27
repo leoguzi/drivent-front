@@ -11,7 +11,7 @@ export default class TicketApi extends AuthenticatedApi {
   }
 
   pay() {
-    return api.post("/tickets/payment", { }, {
+    return api.put("/tickets/payment", { }, {
       headers: {
         ...this.getAuthorizationHeader()
       }
