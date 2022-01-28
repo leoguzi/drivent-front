@@ -6,6 +6,8 @@ import styled from "styled-components";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+dayjs.tz.setDefault("America/Sao_Paulo");
+
 export default function ActivityColumn({ activitiesByDate, selectedDay, title, location }) {
   const getActivityCardHeight = (startDate, endDate) => {
     return dayjs(endDate).diff(startDate, "hours", true) * 80;
@@ -19,7 +21,11 @@ export default function ActivityColumn({ activitiesByDate, selectedDay, title, l
           .map(({ id, name, startDate, endDate }) => 
             <ActivityCard key={id} $height={() => getActivityCardHeight(startDate, endDate)}>
               <p>{name}</p>
-              <span>{dayjs(startDate).tz("America/Sao_Paulo").format("HH:mm") + " - " + dayjs(endDate).tz("America/Sao_Paulo").format("HH:mm")}</span>
+              <span>
+                {dayjs.tz(startDate, "HH:mm", "America/Sao_Paulo")
+                  + " - " +
+                dayjs.tz(endDate, "HH:mm", "America/Sao_Paulo")}
+              </span>
             </ActivityCard>
           )}
       </ColumnActivities>
