@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import ReservationContext from "../../../../contexts/ReservationContext";
+import ReservationContext from "../../../contexts/ReservationContext";
 import { HotelCardsContainerStyle } from "../Hotel/Styles";
 import ReservedRoomCard from "./ReservedRoomCard";
 

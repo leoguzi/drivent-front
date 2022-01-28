@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-
+import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
+import styled from "styled-components";
 import SelectTicket from "./TicketSelection";
 import Payment from "./Payment";
 import useApi from "../../hooks/useApi";
@@ -21,9 +22,16 @@ export default function PaymentForm() {
   }, [isReserved, isConfirmed]);
 
   return (
-    <>
+    <Container>
+      <DashboardPageTitle>Ingresso e Pagamento</DashboardPageTitle>
       {isReserved === true && <Payment ticketInfo={ticketInfo} setIsConfirmed={setIsConfirmed} />}
       {isReserved === false && <SelectTicket setIsReserved={setIsReserved} />}
-    </>
+    </Container>
+    
   );
 }
+const Container = styled.div`
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+`;

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import styled from "styled-components";
 import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
-import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
 import DashboardWarning from "../Dashboard/DashboardWarning";
 import ConfirmButton from "../../components/Dashboard/NavigationBar/ConfirmButton";
 import { toast } from "react-toastify";
+import Loader from "../Dashboard/Loader";
 
 export default function SelectTicket({ setIsReserved }) {
   const [enrollmentStatus, setEnrollmentStatus] = useState(null);
@@ -46,7 +46,7 @@ export default function SelectTicket({ setIsReserved }) {
   useEffect(() => updateTicketValue(), [ticketInfo]);
 
   return isFormLoading ? (
-    <p>Carregando...</p>
+    <Loader/>
   ) : enrollmentStatus === 204 ? (
     <DashboardWarning>
       Você precisa completar sua inscrição antes de prosseguir para escolha de
@@ -54,7 +54,6 @@ export default function SelectTicket({ setIsReserved }) {
     </DashboardWarning>
   ) : (
     <AnimationContainer>
-      <DashboardPageTitle>Ingresso e Pagamento</DashboardPageTitle>
       <DashboardPageSubtitle>
         Primeiro, escolha sua modalidade de ingresso
       </DashboardPageSubtitle>
