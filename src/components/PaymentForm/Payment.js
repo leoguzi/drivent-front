@@ -18,39 +18,26 @@ export default function Payment({ ticketInfo, setIsConfirmed }) {
     focus: "",
     name: "",
     number: "",
+    issuer: "",
   });
+
   const { ticket } = useApi();
 
-  const handleInputFocusCreditCard = (e) => {
-    setCreditCardInfo({ 
-      ...creditCardInfo,
-      focus: e.target.name
-    });
-  };
-
-  const handleInputChangeCreditCard = (e) => {
-    const { name, value } = e.target;
-    
-    setCreditCardInfo({
-      ...creditCardInfo,
-      [name]: value
-    });
-  };
-
   const isValidCreditCard = () => {
-    if (creditCardInfo.number.replace(/\D/g, "").length < 16)
-      return toast("Número do cartão inválido"); 
+    if (creditCardInfo.issuer === "unknown")
+      return toast("Número do cartão inválido");
     
     if (creditCardInfo.name.length < 3)
       return toast("Nome inválido");
     
     if (creditCardInfo.cvc.length < 3)
       return toast("CVC inválido");
-    
-    if (creditCardInfo.expiry.replace(/\D/g, "").length < 4 || !dayjs(creditCardInfo.expiry).isValid()) {
+
+    if (creditCardInfo.expiry.replace(/\D/g, "").length < 4 ||
+      dayjs(creditCardInfo.expiry, "MM/YY").isBefore(dayjs())) {
       return toast("Validade incorreta");
     }
-    
+
     return true;
   };
 
@@ -92,8 +79,8 @@ export default function Payment({ ticketInfo, setIsConfirmed }) {
           ? <>
             <CreditCard
               creditCardInfo={creditCardInfo}
-              handleInputFocusCreditCard={handleInputFocusCreditCard}
-              handleInputChangeCreditCard={handleInputChangeCreditCard}
+              setCreditCardInfo={setCreditCardInfo}
+              onSubmitPayment={onSubmitPayment}
             />
             <ConfirmButton
               onClick={onSubmitPayment}
