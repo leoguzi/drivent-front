@@ -3,9 +3,10 @@ import useApi from "../../hooks/useApi";
 import DashboardWarning from "../Dashboard/DashboardWarning";
 import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
 import DashboardLoader from "../Dashboard/Loader";
-import  styled  from "styled-components";
+import styled from "styled-components";
+import ActivitiesForm from "./ActivitiesForm";
 
-export default function ActivitiesGrid() {
+export default function Activities() {
   const [ticketInfo, setTicketInfo] = useState(null);
   const [isLoading, setIsloading] = useState(true);
   const { ticket } = useApi();
@@ -35,7 +36,7 @@ export default function ActivitiesGrid() {
             <DashboardWarning>
             Sua modalidade de ingresso não necessita escolher atividade.
             Você terá acesso a todas as atividades.
-            </DashboardWarning > : "Carregar o componente da agenda aqui"}
+            </DashboardWarning > : <ActivitiesForm/>}
     </Container>);
 }
 
