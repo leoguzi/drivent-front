@@ -1,5 +1,10 @@
 import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import styled from "styled-components";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default function ActivityColumn({ activitiesByDate, selectedDay, title, location }) {
   const getActivityCardHeight = (startDate, endDate) => {
@@ -14,7 +19,7 @@ export default function ActivityColumn({ activitiesByDate, selectedDay, title, l
           .map(({ id, name, startDate, endDate }) => 
             <ActivityCard key={id} $height={() => getActivityCardHeight(startDate, endDate)}>
               <p>{name}</p>
-              <span>{dayjs(startDate).format("HH:mm") + " - " + dayjs(endDate).format("HH:mm")}</span>
+              <span>{dayjs(startDate).tz("America/Sao_Paulo").format("HH:mm") + " - " + dayjs(endDate).tz("America/Sao_Paulo").format("HH:mm")}</span>
             </ActivityCard>
           )}
       </ColumnActivities>
