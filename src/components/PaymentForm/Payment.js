@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import useApi from "../../hooks/useApi";
 import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
-import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
 import ConfirmButton from "../Dashboard/NavigationBar/ConfirmButton";
 import CreditCard from "./CreditCard";
 import ConfirmationPayment from "./ConfirmationPayment";
@@ -75,7 +74,6 @@ export default function Payment({ ticketInfo, setIsConfirmed }) {
 
   return (
     <PaymentContainer>
-      <DashboardPageTitle>Ingresso e pagamento</DashboardPageTitle>
       <DashboardPageSubtitle>Ingresso escolhido</DashboardPageSubtitle>
       <TicketInfo>
         <h3>
