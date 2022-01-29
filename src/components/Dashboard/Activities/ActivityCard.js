@@ -8,7 +8,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("America/Sao_Paulo");
 
-export default function ActivityCard({ name, startDate, endDate, availableVacancies }) {
+export default function ActivityCard({ name, startDate, endDate, availableVacancies, isSubscribed }) {
   const marginBottom = 10;
 
   const getActivityCardHeight = (startDate, endDate) => {
@@ -21,18 +21,24 @@ export default function ActivityCard({ name, startDate, endDate, availableVacanc
     return durationInHours * hourHeightInPixels + spaceBetweenHours;
   };
 
-  return <ActivityCardContainer
-    $height={() => getActivityCardHeight(startDate, endDate)}
-  >
-    <ActivityInfoContainer>
-      <p>{name}</p>
-      <span>
-        {dayjs(startDate).format("HH:mm") +
+  return (
+    <ActivityCardContainer
+      $height={() => getActivityCardHeight(startDate, endDate)}
+      isSubscribed = {isSubscribed}
+    >
+      <ActivityInfoContainer>
+        <p>{name}</p>
+        <span>
+          {dayjs(startDate).format("HH:mm") +
         " - " +
         dayjs(endDate).format("HH:mm")}
-      </span>
-    </ActivityInfoContainer>
-    
-    <SubscribeField availableVacancies={availableVacancies} />
-  </ActivityCardContainer>;
+        </span>
+      </ActivityInfoContainer>
+
+      <SubscribeField
+        availableVacancies={availableVacancies}
+        isSubscribed={isSubscribed}
+      />
+    </ActivityCardContainer>
+  );
 }

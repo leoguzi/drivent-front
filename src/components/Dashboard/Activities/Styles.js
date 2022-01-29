@@ -1,8 +1,8 @@
-import { BiLogIn, BiXCircle } from "react-icons/bi";
+import { BiLogIn, BiXCircle, BiCheckCircle } from "react-icons/bi";
 import styled from "styled-components";
 
 export const ActivityCardContainer = styled.div`
-	background-color: #f1f1f1;
+	background-color: ${({ isSubscribed }) => isSubscribed? "#D0FFDB" : "#f1f1f1"};
 	padding: 12px;
 	border-radius: 5px;
 	height: ${({ $height }) => $height}px;
@@ -52,8 +52,8 @@ export const SubscribeFieldContainer = styled.div`
 	align-items: center;
 	border-left: 1px solid #cfcfcf;
 	width: 30%;
-	color: ${({ availableVacancies }) =>
-    availableVacancies ? "green" : "red"};
+	color: ${({ forbidden }) =>
+    forbidden ? "red":"green"};
 `;
 
 export const SubscribeIcon = styled(BiLogIn)`
@@ -61,7 +61,12 @@ export const SubscribeIcon = styled(BiLogIn)`
 	color: green;
 `;
 
-export const SoulOutIcon = styled(BiXCircle)`
+export const SoldOutIcon = styled(BiXCircle)`
 	font-size: 24px;
 	color: red;
+`;
+
+export const SubscribedIcon = styled(BiCheckCircle)`
+	font-size: 24px;
+	color: #078632;
 `;

@@ -1,13 +1,16 @@
-import { SoulOutIcon, SubscribeFieldContainer, SubscribeIcon } from "./Styles";
+import { SoldOutIcon, SubscribeFieldContainer, SubscribeIcon, SubscribedIcon } from "./Styles";
 
-export default function SubscribeField({ availableVacancies }) {
+export default function SubscribeField({ availableVacancies, isSubscribed }) {
   return (
-    <SubscribeFieldContainer availableVacancies={availableVacancies}>
-      {availableVacancies ? (
-        <SubscribeButton availableVacancies={availableVacancies} />
-      ) : (
-        <SoldOutWarning />
-      )}
+    <SubscribeFieldContainer forbidden={!availableVacancies && !isSubscribed}>
+
+      {isSubscribed?
+        <SubscribedWarning/>
+        : availableVacancies ? (
+          <SubscribeButton availableVacancies={availableVacancies} />
+        ) : (
+          <SoldOutWarning />
+        )}
     </SubscribeFieldContainer>
   );
 }
@@ -24,8 +27,17 @@ function SubscribeButton({ availableVacancies }) {
 function SoldOutWarning() {
   return (
     <>
-      <SoulOutIcon />
+      <SoldOutIcon />
       <p>Esgotado</p>
+    </>
+  );
+}
+
+function SubscribedWarning() {
+  return (
+    <>
+      <SubscribedIcon />
+      <p>Inscrito</p>
     </>
   );
 }

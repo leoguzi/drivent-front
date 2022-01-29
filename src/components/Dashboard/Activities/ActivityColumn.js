@@ -25,13 +25,14 @@ export default function ActivityColumn({
       <ColumnActivities>
         {activitiesByDate[selectedDay][location]
           .sort((a, b) => dayjs(a.startDate) - dayjs(b.startDate))
-          .map(({ id, name, startDate, endDate, availableVacancies }) => (
+          .map(({ id, name, startDate, endDate, availableVacancies, isSubscribed }) => (
             <ActivityCard
               key={id}
               name={name}
               startDate={startDate}
               endDate={endDate}
               availableVacancies={availableVacancies}
+              isSubscribed={isSubscribed}
             />
           ))}
       </ColumnActivities>
