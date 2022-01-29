@@ -20,7 +20,7 @@ import { ReservationProvider } from "./contexts/ReservationContext";
 export default function App() {
   return (
     <>
-      <ToastContainer />
+      <ToastContainer style={{ fontSize: "20px", width: "400px" }}/>
       <EventInfoProvider>
         <UserProvider>
           <ReservationProvider>
