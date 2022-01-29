@@ -29,12 +29,12 @@ export default function Enroll() {
     event.preventDefault();
     
     if (password !== confirmPassword) {
-      toast("As senhas devem ser iguais!");
+      toast.error("As senhas devem ser iguais!");
     } else {
       setLoadingEnroll(true);
-      
+
       api.user.signUp(email, password).then(response => {
-        toast("Inscrito com sucesso! Por favor, faça login.");
+        toast.success("Inscrito com sucesso! Por favor, faça login.");
         history.push("/sign-in");
       }).catch((error) => {
         if (error.response) {
