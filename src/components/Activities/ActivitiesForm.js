@@ -5,13 +5,11 @@ import styled from "styled-components";
 import useApi from "../../hooks/useApi";
 import ActivityColumn from "../Dashboard/Activities/ActivityColumn";
 import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
-import DashboardPageTitle from "../Dashboard/DashboardPageTitle";
 import Button from "../Form/Button";
 
 export default function ActivitiesForm() {
   const [selectedDay, setSelectedDay] = useState(null);
   const [activitiesByDate, setActivitiesByDate] = useState([]);
-
   const { activities: activitiesApi } = useApi();
 
   useEffect(() => {
@@ -22,7 +20,6 @@ export default function ActivitiesForm() {
 
   return (
     <Container>
-      <DashboardPageTitle>Escolha de atividades</DashboardPageTitle>
       <DashboardPageSubtitle>Primeiro, filtre pelo dia do evento:</DashboardPageSubtitle>
       <ContainerButtons>
         {activitiesByDate.map(({ date }, index) => 

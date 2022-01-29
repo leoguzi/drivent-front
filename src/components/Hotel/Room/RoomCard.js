@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import ReservationContext from "../../../../contexts/ReservationContext";
+import ReservationContext from "../../../contexts/ReservationContext";
 import { RoomCardsStyle, VacancyAvailable, OccupiedVacancy } from "./Styles";
 
 export default function RoomCard({ room }) {

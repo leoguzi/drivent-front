@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as ConfirmIcon } from "../../../assets/icons/confirm-icon.svg"; 
+import { ReactComponent as ConfirmIcon } from "../../assets/icons/confirm-icon.svg"; 
 
 export default function ConfirmationPayment({ children }) {
   return (

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import SectionContainer from "../../SectionContainer";
+import SectionContainer from "../../Dashboard/SectionContainer";
 import HotelCardsContainer from "./HotelCardsContainer";
-import useApi from "../../../../hooks/useApi";
-import FullDashboardPageWarning from "../../FullDashboardPageWarning";
+import useApi from "../../../hooks/useApi";
+import DashboardWarning from "../../Dashboard/DashboardWarning";
+import DashboardLoader from "../../Dashboard/Loader";
 
 export default function HotelSection({ selectedHotel, setSelectedHotel }) {
   const [loading, setLoading] = useState(true);
@@ -38,9 +39,9 @@ export default function HotelSection({ selectedHotel, setSelectedHotel }) {
       
   return (
     loading
-      ? <p>carregando...</p>
+      ? <DashboardLoader/>
       :error
-        ?<FullDashboardPageWarning message={error.message}/>
+        ? <DashboardWarning>{error.message}</DashboardWarning>
         :(
           <SectionContainer title='Primeiro, escolha seu hotel'>
             <HotelCardsContainer

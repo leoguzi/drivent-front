@@ -1,6 +1,6 @@
 
-import Button from "../../../Form/Button";
-import SectionContainer from "../../SectionContainer";
+import Button from "../../Form/Button";
+import SectionContainer from "../../Dashboard/SectionContainer";
 import ReservedRoom from "./ReservedRoom";
 
 export default function RoomSection({ setChangeRoom }) {

@@ -3,9 +3,9 @@ import { useContext, useState } from "react";
 
 import ReservationContext from "../../../contexts/ReservationContext";
 import DashboardPageTitle from "../../../components/Dashboard/DashboardPageTitle";
-import HotelSection from "../../../components/Dashboard/Hotel/Hotel/HotelSection";
-import RoomSection from "../../../components/Dashboard/Hotel/Room/RoomSection";
-import ReservedRoomSection from "../../../components/Dashboard/Hotel/ReservedRoom/ReservedRoomSection";
+import HotelSection from "../../../components/Hotel/Hotel/HotelSection";
+import RoomSection from "../../../components/Hotel/Room/RoomSection";
+import ReservedRoomSection from "../../../components/Hotel/ReservedRoom/ReservedRoomSection";
 
 export default function Hotel() {
   const { confirmedReservation } = useContext(ReservationContext);

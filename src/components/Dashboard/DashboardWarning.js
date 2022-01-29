@@ -1,17 +1,20 @@
 import styled from "styled-components";
+import Typography from "@material-ui/core/Typography";
 
-export default function DashboardWarning({ children }) {
-  return <Warning><p>{ children}</p></Warning>;
+export default function FullDashboardPageWarning({ children }) {
+  return (
+    <Container>
+      <Message variant='body1'>{children}</Message>
+    </Container>
+  );
 }
-const Warning = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    p{
-        text-align: center;
-        color: #8e8e8e;
-        font-size: 20px;
-    }
+
+const Container = styled.div`
+    margin: auto;
+`;
+
+const Message = styled(Typography)`
+    font-size: 1.3rem !important;
+    text-align: center;
+    color: #757575;
 `;

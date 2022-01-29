@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import ReservationContext from "../../../../contexts/ReservationContext";
-import useApi from "../../../../hooks/useApi";
-import SectionContainer from "../../SectionContainer";
+import ReservationContext from "../../../contexts/ReservationContext";
+import useApi from "../../../hooks/useApi";
+import SectionContainer from "../../Dashboard/SectionContainer";
 import RoomCardsContainer from "./RoomCardsContainer";
-import Button from "../../../Form/Button";
+import Button from "../../Form/Button";
 
 export default function RoomSection({ selectedHotel, setChangeRoom }) {
   const { setRoomInfo, reservationInfo, update, setUpdate } =

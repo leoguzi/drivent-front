@@ -1,5 +1,5 @@
-import ActivitiesForm from "../../../components/ActivitiesForm";
+import ActivitiesForm from "../../../components/Activities";
 
 export default function Activities() {
-  return <ActivitiesForm />;
+  return <ActivitiesForm/>;
 }
