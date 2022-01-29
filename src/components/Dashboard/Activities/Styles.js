@@ -11,7 +11,7 @@ export const ActivityCard = styled.div`
   display: flex;
   justify-content: space-between;
 
-  > p {
+  p {
     font-weight: bold;
     margin-bottom: 6px;
   }
