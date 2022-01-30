@@ -21,6 +21,7 @@ import { ErrorMsg } from "./ErrorMsg";
 import { ufList } from "./ufList";
 import FormValidations from "./FormValidations";
 import ReservationContext from "../../contexts/ReservationContext";
+import httpStatus from "http-status";
 
 dayjs.extend(CustomParseFormat);
 
@@ -67,7 +68,9 @@ export default function PersonalInformationForm() {
           setUpdate(!update);
           toast.success("Salvo com sucesso!");
         }).catch((error) => {
-          if (error.response?.data?.details) {
+          if (error.response.status === httpStatus.CONFLICT) {
+            toast.error(error.response.data.message);
+          } else if (error.response?.data?.details) {
             for (const detail of error.response.data.details) {
               toast.error(detail);
             }
@@ -95,7 +98,7 @@ export default function PersonalInformationForm() {
   useEffect(() => {
     if (enrollmentInfo) {
       const { name, cpf, birthday, phone, address } = enrollmentInfo;
-      
+
       setDisabledCpfField(true);
       setData({
         name,
