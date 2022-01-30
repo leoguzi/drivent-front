@@ -1,70 +1,90 @@
-import { BiLogIn, BiXCircle } from "react-icons/bi";
+import { BiLogIn, BiXCircle, BiCheckCircle } from "react-icons/bi";
 import styled from "styled-components";
 
 export const EmptyCard = styled.div`
   height: ${({ $height }) => $height}px;
 `;
 
-export const ActivityCard = styled.div`
-  background-color: #f1f1f1;
-  padding: 12px;
-  border-radius: 5px;
-  height: ${({ $height }) => $height}px;
-  font-size: 12px;
-  color: #343434;
-  display: flex;
-  justify-content: space-between;
-
-  p:first-child {
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
+export const ActivityCardContainer = styled.div`
+	background-color: ${({ isSubscribed }) => isSubscribed? "#D0FFDB" : "#f1f1f1"};
+	padding: 12px;
+	border-radius: 5px;
+	height: ${({ $height }) => $height}px;
+	font-size: 12px;
+	color: #343434;
+	display: flex;
+	justify-content: space-between;
 `;
 
 export const ActivityInfoContainer = styled.div`
-  width: 70%;
+	width: 70%;
+
+	> p {
+		font-weight: bold;
+		margin-bottom: 6px;
+	}
 `;
 
 export const ColumnActivities = styled.div`
-  border: 1px solid #d7d7d7;
-  height: 100%;
-  padding: 10px;
-  width: 288px;
+	border: 1px solid #d7d7d7;
+	height: 100%;
+	padding: 10px;
+	width: 288px;
 
-  & > *:not(:last-child) {
-    margin-bottom: 10px;
-  }
+	& > *:not(:last-child) {
+		margin-bottom: 10px;
+	}
 `;
 
 export const TitleColumnActivities = styled.h2`
-  font-size: 17px;
-  margin-bottom: 13px;
-  color: #7b7b7b;
-  text-align: center;
+	font-size: 17px;
+	margin-bottom: 13px;
+	color: #7b7b7b;
+	text-align: center;
 `;
 
 export const ContainerColumnActivities = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 60px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 60px;
 `;
 
 export const SubscribeFieldContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-left: 1px solid #cfcfcf;
-  width: 30%;
-  color: ${({ availableVacancies }) => (availableVacancies ? "green" : "red")};
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-left: 1px solid #cfcfcf;
+	width: 30%;
+	color: ${({ forbidden }) =>
+    forbidden ? "red":"green"};
+`;
+
+export const SubscribeButtonStyle = styled.button`
+	font-size:inherit;
+	font-family:inherit;
+	color: inherit;
+	width: 100%;
+	padding: 0px;
+	border: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	cursor: ${({ disabled }) => disabled ? "initial" : "pointer"};
 `;
 
 export const SubscribeIcon = styled(BiLogIn)`
-  font-size: 24px;
-  color: green;
+	font-size: 24px;
+	color: green;
 `;
 
-export const SoulOutIcon = styled(BiXCircle)`
-  font-size: 24px;
-  color: red;
+export const SoldOutIcon = styled(BiXCircle)`
+	font-size: 24px;
+	color: red;
+`;
+
+export const SubscribedIcon = styled(BiCheckCircle)`
+	font-size: 24px;
+	color: #078632;
 `;

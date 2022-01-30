@@ -3,14 +3,12 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { useRef } from "react";
 import {
-  ActivityCard,
-  ActivityInfoContainer,
   ColumnActivities,
   ContainerColumnActivities,
   EmptyCard,
   TitleColumnActivities,
 } from "./Styles";
-import SubscribeField from "./SubscribeField";
+import ActivityCard from "./ActivityCard";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -24,10 +22,15 @@ export default function ActivityColumn({
 }) {
   const lastActivityCardEndDate = useRef();
 
-  const getActivityCardHeight = (startDate, endDate) => {
+  const getActivityCardHeight = (startDate, endDate, isEmptyCard = false) => {
     lastActivityCardEndDate.current = endDate;
+    const marginBottom = isEmptyCard ? 0 : 10;
+    const hourHeightInPixels = 80;
 
-    return dayjs(endDate).diff(startDate, "hours", true) * 80;
+    const durationInHours = dayjs(endDate).diff(startDate, "hours", true);
+    const spaceBetweenHours = (Math.floor(durationInHours) - 1) * marginBottom;
+
+    return (durationInHours * hourHeightInPixels) + spaceBetweenHours;
   };
 
   return (
@@ -36,30 +39,21 @@ export default function ActivityColumn({
       <ColumnActivities>
         {activitiesByDate[selectedDay][location]
           .sort((a, b) => dayjs(a.startDate) - dayjs(b.startDate))
-          .map(({ id, name, startDate, endDate, availableVacancies }, index) => {
+          .map((activity, index) => {
             if (index === 0) {
-              lastActivityCardEndDate.current = dayjs(startDate).hour(9).minute(0).format();
+              lastActivityCardEndDate.current = dayjs(activity.startDate).hour(9).minute(0);
             }
             return (
-              <div key={id}>
-                {dayjs(startDate).isAfter(lastActivityCardEndDate.current) &&
+              <div key={activity.id}>
+                {dayjs(activity.startDate).isAfter(lastActivityCardEndDate.current) &&
                   <EmptyCard
-                    $height={() => getActivityCardHeight(lastActivityCardEndDate.current, startDate)}
+                    $height={() => getActivityCardHeight(lastActivityCardEndDate.current, activity.startDate, true)}
                   />
                 }
                 <ActivityCard
-                  $height={() => getActivityCardHeight(startDate, endDate)}
-                >
-                  <ActivityInfoContainer>
-                    <p>{name}</p>
-                    <span>
-                      {dayjs(startDate).format("HH:mm") +
-                    " - " +
-                    dayjs(endDate).format("HH:mm")}
-                    </span>
-                  </ActivityInfoContainer>
-                  <SubscribeField availableVacancies={availableVacancies} />
-                </ActivityCard>
+                  activity={activity}
+                  getActivityCardHeight={getActivityCardHeight}
+                />
               </div>
             );
           })}
