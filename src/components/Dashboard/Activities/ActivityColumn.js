@@ -2,13 +2,11 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import {
-  ActivityCard,
-  ActivityInfoContainer,
   ColumnActivities,
   ContainerColumnActivities,
   TitleColumnActivities,
 } from "./Styles";
-import SubscribeField from "./SubscribeField";
+import ActivityCard from "./ActivityCard";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -21,31 +19,17 @@ export default function ActivityColumn({
   title,
   location,
 }) {
-  const getActivityCardHeight = (startDate, endDate) => {
-    return dayjs(endDate).diff(startDate, "hours", true) * 80;
-  };
-
   return (
     <ContainerColumnActivities>
       <TitleColumnActivities>{title}</TitleColumnActivities>
       <ColumnActivities>
         {activitiesByDate[selectedDay][location]
           .sort((a, b) => dayjs(a.startDate) - dayjs(b.startDate))
-          .map(({ id, name, startDate, endDate, availableVacancies }) => (
+          .map((activity) => (
             <ActivityCard
-              key={id}
-              $height={() => getActivityCardHeight(startDate, endDate)}
-            >
-              <ActivityInfoContainer>
-                <p>{name}</p>
-                <span>
-                  {dayjs(startDate).format("HH:mm") +
-                    " - " +
-                    dayjs(endDate).format("HH:mm")}
-                </span>
-              </ActivityInfoContainer>
-              <SubscribeField availableVacancies={availableVacancies} />
-            </ActivityCard>
+              key={activity.id}
+              activity={activity}
+            />
           ))}
       </ColumnActivities>
     </ContainerColumnActivities>
