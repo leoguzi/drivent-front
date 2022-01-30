@@ -21,11 +21,13 @@ import { ErrorMsg } from "./ErrorMsg";
 import { ufList } from "./ufList";
 import FormValidations from "./FormValidations";
 import ReservationContext from "../../contexts/ReservationContext";
+import httpStatus from "http-status";
 
 dayjs.extend(CustomParseFormat);
 
 export default function PersonalInformationForm() {
   const [dynamicInputIsLoading, setDynamicInputIsLoading] = useState(false);
+  const [disabledCpfField, setDisabledCpfField] = useState(false);
   const { enrollment, cep } = useApi();
   const { enrollmentInfo, setEnrollmentInfo, update, setUpdate } =
     useContext(ReservationContext);
@@ -64,18 +66,17 @@ export default function PersonalInformationForm() {
         .then(() => {
           setEnrollmentInfo(newData);
           setUpdate(!update);
-          toast("Salvo com sucesso!");
-        })
-        .catch((error) => {
-          if (error.response?.data?.details) {
+          toast.success("Salvo com sucesso!");
+        }).catch((error) => {
+          if (error.response.status === httpStatus.CONFLICT) {
+            toast.error(error.response.data.message);
+          } else if (error.response?.data?.details) {
             for (const detail of error.response.data.details) {
-              toast(detail);
+              toast.error(detail);
             }
           } else {
-            toast("Não foi possível");
+            toast.error("Não foi possível");
           }
-          /* eslint-disable-next-line no-console */
-          console.error(error);
         });
     },
 
@@ -98,6 +99,7 @@ export default function PersonalInformationForm() {
     if (enrollmentInfo) {
       const { name, cpf, birthday, phone, address } = enrollmentInfo;
 
+      setDisabledCpfField(true);
       setData({
         name,
         cpf,
@@ -164,6 +166,7 @@ export default function PersonalInformationForm() {
               label="CPF"
               type="text"
               maxLength="14"
+              disabled={disabledCpfField}
               mask="999.999.999-99"
               value={data.cpf || ""}
               onChange={handleChange("cpf")}

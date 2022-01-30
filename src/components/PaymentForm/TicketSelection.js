@@ -30,7 +30,7 @@ export default function SelectTicket({ setIsReserved }) {
         setIsReserved(true);
       })
       .catch(() => {
-        toast(
+        toast.error(
           "Não foi possível reservar seu ingresso. Tente novamente mais tarde."
         );
       })

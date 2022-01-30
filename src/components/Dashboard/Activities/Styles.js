@@ -1,6 +1,10 @@
 import { BiLogIn, BiXCircle, BiCheckCircle } from "react-icons/bi";
 import styled from "styled-components";
 
+export const EmptyCard = styled.div`
+  height: ${({ $height }) => $height}px;
+`;
+
 export const ActivityCardContainer = styled.div`
 	background-color: ${({ isSubscribed }) => isSubscribed? "#D0FFDB" : "#f1f1f1"};
 	padding: 12px;

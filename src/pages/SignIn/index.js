@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { toast } from "react-toastify";
+import httpStatus from "http-status";
 
 import AuthLayout from "../../layouts/Auth";
 
@@ -27,22 +28,19 @@ export default function SignIn() {
     event.preventDefault();
     setLoadingSignIn(true);
 
-    api.auth.signIn(email, password).then(response => {
+    api.auth.signIn(email, password).then((response) => {
       setUserData(response.data);
-    }).catch(error => {
-      /* eslint-disable-next-line no-console */
-      console.error(error);
-      
-      if (error.response) {
-        for (const detail of error.response.data.details) {
-          toast(detail);
+    }).catch((error) => {
+      if (error.response.status === httpStatus.UNAUTHORIZED) {
+        toast.error("Email e/ou senha não conferem!");
+      } else if (error.response) {
+        for (const detail of error.response?.data?.details) {
+          toast.error(detail);
         }
       } else {
-        toast("Não foi possível conectar ao servidor!");
+        toast.error("Não foi possível conectar ao servidor!");
       }
-    }).then(() => {
-      setLoadingSignIn(false);
-    });
+    }).finally(() => setLoadingSignIn(false));
   } 
 
   return (

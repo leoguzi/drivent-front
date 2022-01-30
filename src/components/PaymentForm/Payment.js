@@ -24,17 +24,17 @@ export default function Payment({ ticketInfo, setIsConfirmed }) {
 
   const isValidCreditCard = () => {
     if (creditCardInfo.issuer === "unknown")
-      return toast("Número do cartão inválido");
+      return toast.error("Número do cartão inválido");
     
     if (creditCardInfo.name.length < 3)
-      return toast("Nome inválido");
+      return toast.error("Nome inválido");
     
     if (creditCardInfo.cvc.length < 3)
-      return toast("CVC inválido");
+      return toast.error("CVC inválido");
 
     if (creditCardInfo.expiry.replace(/\D/g, "").length < 4 ||
       dayjs(creditCardInfo.expiry, "MM/YY").isBefore(dayjs())) {
-      return toast("Validade incorreta");
+      return toast.error("Validade incorreta");
     }
 
     return true;
@@ -46,15 +46,15 @@ export default function Payment({ ticketInfo, setIsConfirmed }) {
     setIsLoading(true);
     
     ticket.pay().then(() => {
-      toast("Pagamento realizado com sucesso!");
+      toast.success("Pagamento realizado com sucesso!");
       setIsConfirmed(true);
     }).catch((error) => {
       if (error.response?.data?.details) {
         error.response.data.details.forEach((detail) => {
-          toast(detail);
+          toast.error(detail);
         });
       } else {
-        toast("Não foi possível realizar o pagamento");
+        toast.error("Não foi possível realizar o pagamento");
       }
     }).finally(() => setIsLoading(false));
   };

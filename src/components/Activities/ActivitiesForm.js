@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -14,7 +15,7 @@ export default function ActivitiesForm() {
 
   useEffect(() => {
     activitiesApi.getActivities().then((res) => {
-      setActivitiesByDate(res.data.reverse());
+      setActivitiesByDate(res.data);
     }).catch(() => toast.error("Não foi possível obter as atividades"));
   }, []);
 
@@ -22,11 +23,17 @@ export default function ActivitiesForm() {
     <Container>
       <DashboardPageSubtitle>Primeiro, filtre pelo dia do evento:</DashboardPageSubtitle>
       <ContainerButtons>
-        {activitiesByDate.map(({ date }, index) => 
-          <DayButton key={index} $isSelected={selectedDay === index} onClick={() => setSelectedDay(index)}>
-            {date.replace("-feira", "")}
-          </DayButton>
-        )}
+        {activitiesByDate
+          .sort((a, b) => dayjs(a.date.slice(-5), "DD/MM") - dayjs(b.date.slice(-5), "DD/MM"))
+          .map(({ date }, index) => 
+            <DayButton
+              key={index}
+              $isSelected={selectedDay === index}
+              onClick={() => setSelectedDay(index)}
+            >
+              {date.replace("-feira", "")}
+            </DayButton>
+          )}
       </ContainerButtons>
       {selectedDay !== null && 
       <ActivitiesContainer>
