@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {
   ActivityCard,
   ActivityInfoContainer,
@@ -14,7 +14,6 @@ import SubscribeField from "./SubscribeField";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
-
 dayjs.tz.setDefault("America/Sao_Paulo");
 
 export default function ActivityColumn({
@@ -23,12 +22,11 @@ export default function ActivityColumn({
   title,
   location,
 }) {
-  const lastActivityCard = useRef({
-    startDate: "09:00",
-    endDate: "09:00",
-  });
+  const lastActivityCardEndDate = useRef();
 
   const getActivityCardHeight = (startDate, endDate) => {
+    lastActivityCardEndDate.current = endDate;
+
     return dayjs(endDate).diff(startDate, "hours", true) * 80;
   };
 
@@ -39,15 +37,17 @@ export default function ActivityColumn({
         {activitiesByDate[selectedDay][location]
           .sort((a, b) => dayjs(a.startDate) - dayjs(b.startDate))
           .map(({ id, name, startDate, endDate, availableVacancies }, index) => {
+            if (index === 0) {
+              lastActivityCardEndDate.current = dayjs(startDate).hour(9).minute(0).format();
+            }
             return (
-              <>
-                {dayjs(startDate).isAfter(dayjs(lastActivityCard.endDate, "HH:mm")) &&
+              <div key={id}>
+                {dayjs(startDate).isAfter(lastActivityCardEndDate.current) &&
                   <EmptyCard
-                    $height={() => getActivityCardHeight(dayjs(lastActivityCard.endDate, "HH:mm"), startDate)}
+                    $height={() => getActivityCardHeight(lastActivityCardEndDate.current, startDate)}
                   />
                 }
                 <ActivityCard
-                  key={id}
                   $height={() => getActivityCardHeight(startDate, endDate)}
                 >
                   <ActivityInfoContainer>
@@ -60,7 +60,7 @@ export default function ActivityColumn({
                   </ActivityInfoContainer>
                   <SubscribeField availableVacancies={availableVacancies} />
                 </ActivityCard>
-              </>
+              </div>
             );
           })}
       </ColumnActivities>
