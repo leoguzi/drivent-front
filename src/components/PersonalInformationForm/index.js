@@ -64,15 +64,15 @@ export default function PersonalInformationForm() {
         .then(() => {
           setEnrollmentInfo(newData);
           setUpdate(!update);
-          toast("Salvo com sucesso!");
+          toast.success("Salvo com sucesso!");
         })
         .catch((error) => {
           if (error.response?.data?.details) {
             for (const detail of error.response.data.details) {
-              toast(detail);
+              toast.error(detail);
             }
           } else {
-            toast("Não foi possível");
+            toast.error("Não foi possível");
           }
           /* eslint-disable-next-line no-console */
           console.error(error);

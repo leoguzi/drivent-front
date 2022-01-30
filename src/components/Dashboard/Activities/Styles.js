@@ -1,6 +1,10 @@
 import { BiLogIn, BiXCircle } from "react-icons/bi";
 import styled from "styled-components";
 
+export const EmptyCard = styled.div`
+  height: ${({ $height }) => $height}px;
+`;
+
 export const ActivityCard = styled.div`
   background-color: #f1f1f1;
   padding: 12px;
@@ -11,7 +15,7 @@ export const ActivityCard = styled.div`
   display: flex;
   justify-content: space-between;
 
-  p {
+  p:first-child {
     font-weight: bold;
     margin-bottom: 6px;
   }
