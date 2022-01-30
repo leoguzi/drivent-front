@@ -26,6 +26,7 @@ dayjs.extend(CustomParseFormat);
 
 export default function PersonalInformationForm() {
   const [dynamicInputIsLoading, setDynamicInputIsLoading] = useState(false);
+  const [disabledCpfField, setDisabledCpfField] = useState(false);
   const { enrollment, cep } = useApi();
   const { enrollmentInfo, setEnrollmentInfo, update, setUpdate } =
     useContext(ReservationContext);
@@ -65,8 +66,7 @@ export default function PersonalInformationForm() {
           setEnrollmentInfo(newData);
           setUpdate(!update);
           toast.success("Salvo com sucesso!");
-        })
-        .catch((error) => {
+        }).catch((error) => {
           if (error.response?.data?.details) {
             for (const detail of error.response.data.details) {
               toast.error(detail);
@@ -74,8 +74,6 @@ export default function PersonalInformationForm() {
           } else {
             toast.error("Não foi possível");
           }
-          /* eslint-disable-next-line no-console */
-          console.error(error);
         });
     },
 
@@ -97,7 +95,8 @@ export default function PersonalInformationForm() {
   useEffect(() => {
     if (enrollmentInfo) {
       const { name, cpf, birthday, phone, address } = enrollmentInfo;
-
+      
+      setDisabledCpfField(true);
       setData({
         name,
         cpf,
@@ -164,6 +163,7 @@ export default function PersonalInformationForm() {
               label="CPF"
               type="text"
               maxLength="14"
+              disabled={disabledCpfField}
               mask="999.999.999-99"
               value={data.cpf || ""}
               onChange={handleChange("cpf")}
