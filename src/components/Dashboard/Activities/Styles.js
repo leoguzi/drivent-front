@@ -56,6 +56,20 @@ export const SubscribeFieldContainer = styled.div`
     forbidden ? "red":"green"};
 `;
 
+export const SubscribeButtonStyle = styled.button`
+	font-size:inherit;
+	font-family:inherit;
+	color: inherit;
+	width: 100%;
+	padding: 0px;
+	border: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	cursor: ${({ disabled }) => disabled ? "initial" : "pointer"};
+`;
+
 export const SubscribeIcon = styled(BiLogIn)`
 	font-size: 24px;
 	color: green;
