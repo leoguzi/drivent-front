@@ -5,22 +5,34 @@ import DownloadCertificate from "../../../components/Certificate/DownloadCertifi
 import DashboardPageTitle from "../../../components/Dashboard/DashboardPageTitle";
 import DashboardWarning from "../../../components/Dashboard/DashboardWarning";
 import DashboardLoader from "../../../components/Dashboard/Loader";
+import useApi from "../../../hooks/useApi";
 
 export default function Certificate({ ensureEventIsFinished }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [certificateLink, setCertificateLink] = useState(null);
+
+  const { certificate } = useApi();
 
   useEffect(() => {
+    certificate.getCertificate()
+      .then((response) => console.log(response))
+      .catch(() => {
+        //setErrorMessage("Não foi possível obter seu certificado");
+      });
     setTimeout(setIsLoading, 2000, false);
   }, []);
 
   return (
     <Container>
       <DashboardPageTitle>Baixe seu certificado</DashboardPageTitle>
-      {!ensureEventIsFinished().check() ?
-        <DashboardWarning>{ensureEventIsFinished().message}</DashboardWarning> :
-        (isLoading ?
-          <DashboardLoader /> :
-          <DownloadCertificate />
+      {isLoading ?
+        <DashboardLoader /> :
+        ((ensureEventIsFinished().check()) ?
+          (!errorMessage ?
+            <DownloadCertificate certificateLink={certificateLink} /> : 
+            <DashboardWarning>{errorMessage}</DashboardWarning>) :
+          <DashboardWarning>{ensureEventIsFinished().message}</DashboardWarning>
         )
       }
     </Container>

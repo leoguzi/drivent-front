@@ -2,10 +2,14 @@ import Button from "../Form/Button";
 import DashboardPageSubtitle from "../Dashboard/DashboardPageSubtitle";
 import styled from "styled-components";
 
-export default function DownloadCertificate() {
+export default function DownloadCertificate({ certificateLink }) {
   return (<>
     <DashboardPageSubtitle>Seu certificado já está disponível:</DashboardPageSubtitle>
-    <DownloadButton>Abrir PDF</DownloadButton>
+    <DownloadButton
+      onClick={() => window.open(certificateLink)}
+    >
+      Abrir PDF
+    </DownloadButton>
   </>);
 }
 
