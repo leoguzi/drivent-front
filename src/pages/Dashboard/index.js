@@ -18,7 +18,7 @@ import Hotel from "./Hotel";
 import Activities from "./Activities";
 import Certificate from "./Certificate";
 
-export default function Dashboard() {
+export default function Dashboard({ ensureEventIsFinished }) {
   const { eventInfo } = useContext(EventInfoContext);
   const match = useRouteMatch();
 
@@ -45,7 +45,7 @@ export default function Dashboard() {
           </Route>
 
           <Route path={`${match.path}/certificate`} exact>
-            <Certificate />
+            <Certificate ensureEventIsFinished={ensureEventIsFinished} />
           </Route>
 
           <Route path={`${match.path}/`}>

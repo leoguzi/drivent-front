@@ -39,7 +39,7 @@ export default function App() {
                 </ConditionalRoute>
 
                 <ConditionalRoute check={ensureAuthenticated} path="/dashboard">
-                  <Dashboard />
+                  <Dashboard ensureEventIsFinished={ensureEventIsFinished} />
                 </ConditionalRoute>
               </Switch>
             </Router>
@@ -81,7 +81,9 @@ function ensureAuthenticated() {
 function ensureEventIsFinished() {
   const { eventInfo } = useContext(EventInfoContext);
 
-  return [
-    { to: "/", check: () => dayjs().isAfter(dayjs(eventInfo.endDate)), message: "Os certificados não foram liberados ainda!" }
-  ];
+  return { 
+    to: "/",
+    check: () => dayjs().isAfter(dayjs(eventInfo.endDate)),
+    message: "Os certificados não foram liberados ainda!"
+  };
 }
