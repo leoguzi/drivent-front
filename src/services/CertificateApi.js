@@ -9,8 +9,11 @@ export default class CertificateApi extends AuthenticatedApi {
 
   getCertificate() {
     return api.get(`${this.baseRoute}/certificate.pdf`, {
+      responseType: "arraybuffer",
       headers: {
-        ...this.getAuthorizationHeader()
+        ...this.getAuthorizationHeader(),
+        "Content-Type": "application/json",
+        "Accept": "application/pdf"
       }
     });
   }
